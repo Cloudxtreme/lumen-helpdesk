@@ -1,6 +1,6 @@
 package org.lskk.lumen.helpdesk;
 
-import org.lskk.lumen.core.LumenCoreConfig;
+//import org.lskk.lumen.core.LumenCoreConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
