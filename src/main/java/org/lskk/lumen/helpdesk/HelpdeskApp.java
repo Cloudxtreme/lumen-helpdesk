@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Profile;
 /**
  * Aplikasi utama untuk menjalankan helpdesk.
  */
-@SpringBootApplication(exclude = {GroovyTemplateAutoConfiguration.class, LiquibaseAutoConfiguration.class})
+@SpringBootApplication(exclude = {GroovyTemplateAutoConfiguration.class})
 @Profile({"helpdeskApp"})
 //@Import(LumenCoreConfig.class)
 class HelpdeskApp implements CommandLineRunner {
