@@ -21,3 +21,7 @@
 \copy lumen.district (province_id, province_name, city_id, city_name, id, name, geometry) FROM 'init/kecamatan.all.csv' (FORMAT CSV, HEADER true);
 
 \copy lumen.general_hospital (id, name, kind, location_address, location_lat, location_lon, postal_code, phone0, phone1, phone2, faximile0, faximile1, website, email, city_id, district_id, village_id, lat, lon, geometry) FROM 'init/rumahsakitumum.all.csv' (FORMAT CSV, HEADER true);
+
+## REST API
+
+Access via http://localhost:8080/

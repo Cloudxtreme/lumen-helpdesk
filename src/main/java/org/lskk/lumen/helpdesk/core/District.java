@@ -1,5 +1,6 @@
 package org.lskk.lumen.helpdesk.core;
 
+import com.google.common.base.MoreObjects;
 import org.geolatte.geom.G2D;
 import org.geolatte.geom.Polygon;
 
@@ -15,7 +16,6 @@ import java.io.Serializable;
 @Entity
 public class District implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     private String name;
     private String provinceId;
@@ -78,5 +78,18 @@ public class District implements Serializable {
 
     public void setGeometry(Polygon<G2D> geometry) {
         this.geometry = geometry;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).omitNullValues()
+                .add("id", id)
+                .add("name", name)
+                .add("provinceId", provinceId)
+                .add("provinceName", provinceName)
+                .add("cityId", cityId)
+                .add("cityName", cityName)
+                .add("geometry", geometry)
+                .toString();
     }
 }
