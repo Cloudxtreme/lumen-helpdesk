@@ -1,8 +1,7 @@
 package org.lskk.lumen.helpdesk.core;
 
 import com.google.common.base.MoreObjects;
-import org.geolatte.geom.G2D;
-import org.geolatte.geom.Polygon;
+import com.vividsolutions.jts.geom.Polygon;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,7 +21,7 @@ public class District implements Serializable {
     private String provinceName;
     private String cityId;
     private String cityName;
-    private Polygon<G2D> geometry;
+    private Polygon geometry;
 
     public String getId() {
         return id;
@@ -72,11 +71,11 @@ public class District implements Serializable {
         this.cityName = cityName;
     }
 
-    public Polygon<G2D> getGeometry() {
+    public Polygon getGeometry() {
         return geometry;
     }
 
-    public void setGeometry(Polygon<G2D> geometry) {
+    public void setGeometry(Polygon geometry) {
         this.geometry = geometry;
     }
 

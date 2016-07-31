@@ -1,8 +1,7 @@
 package org.lskk.lumen.helpdesk.core;
 
 import com.google.common.base.MoreObjects;
-import org.geolatte.geom.G2D;
-import org.geolatte.geom.Point;
+import com.vividsolutions.jts.geom.Point;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,7 +31,7 @@ public class GeneralHospital implements Serializable {
     private String villageId;
     private Float lat;
     private Float lon;
-    private Point<G2D> geometry;
+    private Point geometry;
 
     public Integer getId() {
         return id;
@@ -170,11 +169,11 @@ public class GeneralHospital implements Serializable {
         this.lon = lon;
     }
 
-    public Point<G2D> getGeometry() {
+    public Point getGeometry() {
         return geometry;
     }
 
-    public void setGeometry(Point<G2D> geometry) {
+    public void setGeometry(Point geometry) {
         this.geometry = geometry;
     }
 
