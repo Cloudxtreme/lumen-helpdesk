@@ -78,6 +78,7 @@ public class TwitterHelpdeskConfig {
                     for (final HelpdeskMessage msg : helpdeskResult.getMessages()) {
                         if (null != msg.getResponseText()) {
                             String tweetText = "@" + status.getUser().getScreenName() + " @" + mentionsTracked.get().getScreenName() + " " + msg.getResponseText();
+                            tweetText = StringUtils.abbreviate(tweetText, 115);
                             if (null != msg.getGmapsUri()) {
                                 tweetText += " " + msg.getGmapsUri();
                             }

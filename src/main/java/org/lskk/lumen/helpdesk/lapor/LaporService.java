@@ -69,8 +69,9 @@ public class LaporService {
                 if (hit.getScore() >= THRESHOLD) {
                     final String trackingId = (String) hit.getSource().get("TrackingID");
                     final String caseTitle = ((String) hit.getSource().get("JudulLaporan")).trim();
-                    msg.setResponseText(String.format("Silakan dukung @LAPOR1708 #%s %s https://www.lapor.go.id/id/%s/",
-                            trackingId, StringUtils.abbreviate(caseTitle, 80), trackingId));
+                    msg.setResponseText(String.format("Silakan dukung @LAPOR1708 #%s %s",
+                            trackingId, caseTitle, 80));
+                    msg.setGmapsUri(String.format("https://www.lapor.go.id/id/%s/", trackingId));
                     log.info("Responding (score={}) {}", hit.getScore(), msg);
                     break;
                 }
