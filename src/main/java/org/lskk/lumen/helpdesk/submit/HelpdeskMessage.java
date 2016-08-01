@@ -1,10 +1,14 @@
 package org.lskk.lumen.helpdesk.submit;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.google.common.base.MoreObjects;
+
 import java.io.Serializable;
 
 /**
  * Created by ceefour on 01/08/2016.
  */
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class HelpdeskMessage implements Serializable {
 
     private Long id;
@@ -163,5 +167,28 @@ public class HelpdeskMessage implements Serializable {
 
     public void setGmapsUri(String gmapsUri) {
         this.gmapsUri = gmapsUri;
+    }
+
+    @Override
+    public String toString() {
+        return MoreObjects.toStringHelper(this).omitNullValues()
+                .add("id", id)
+                .add("channelSenderId", channelSenderId)
+                .add("channelSenderScreenName", channelSenderScreenName)
+                .add("senderName", senderName)
+                .add("inputText", inputText)
+                .add("inputKind", inputKind)
+                .add("districtUpName", districtUpName)
+                .add("districtName", districtName)
+                .add("districtId", districtId)
+                .add("hospitalId", hospitalId)
+                .add("hospitalName", hospitalName)
+                .add("hospitalAddress", hospitalAddress)
+                .add("hospitalPhone", hospitalPhone)
+                .add("hospitalLat", hospitalLat)
+                .add("hospitalLon", hospitalLon)
+                .add("responseText", responseText)
+                .add("gmapsUri", gmapsUri)
+                .toString();
     }
 }
