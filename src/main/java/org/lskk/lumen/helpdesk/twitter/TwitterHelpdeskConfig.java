@@ -57,12 +57,15 @@ public class TwitterHelpdeskConfig {
             public void onStatus(Status status) {
                 super.onStatus(status);
                 final Optional<UserMentionEntity> mentionsTracked = Stream.of(status.getUserMentionEntities()).filter(it -> trackedScreenNames.contains(it.getScreenName().toLowerCase())).findAny();
-                if (mentionsTracked.isPresent()) {
+                // ignore our own responses
+                final boolean fromTracked = trackedScreenNames.contains(status.getUser().getScreenName().toLowerCase());
+                if (!fromTracked && mentionsTracked.isPresent()) {
                     final HelpdeskInput helpdeskInput = new HelpdeskInput();
                     final HelpdeskMessage helpdeskMessage = new HelpdeskMessage();
                     curHelpdeskMessageId++;
                     helpdeskMessage.setId(curHelpdeskMessageId);
-                    helpdeskMessage.setInputText(status.getText());
+                    final String inputCleanText = StringUtils.removeStartIgnoreCase(status.getText(), "@" + mentionsTracked.get().getScreenName()).trim();
+                    helpdeskMessage.setInputText(inputCleanText);
                     helpdeskMessage.setChannelSenderId(status.getUser().getId());
                     helpdeskMessage.setChannelSenderScreenName(status.getUser().getScreenName());
                     helpdeskInput.getMessages().add(helpdeskMessage);
