@@ -7,6 +7,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
@@ -14,7 +15,7 @@ import org.springframework.context.annotation.Profile;
 /**
  * Aplikasi utama untuk menjalankan helpdesk.
  */
-@SpringBootApplication(exclude = {GroovyTemplateAutoConfiguration.class})
+@SpringBootApplication(exclude = {GroovyTemplateAutoConfiguration.class, MongoAutoConfiguration.class})
 @Profile({"helpdeskApp"})
 //@Import(LumenCoreConfig.class)
 class HelpdeskApp implements CommandLineRunner {
