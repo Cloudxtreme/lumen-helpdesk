@@ -134,7 +134,7 @@
 		<dependency>
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
-			<version>3.5</version>
+			<version>3.7</version>
 		</dependency>
 
 		<dependency>
@@ -315,6 +315,11 @@
             <artifactId>usertype.extended</artifactId>
             <version>4.0.0.GA</version>
         </dependency>
+		<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>2.3.4</version>
+		</dependency>
 	</dependencies>
 
 	<build>
