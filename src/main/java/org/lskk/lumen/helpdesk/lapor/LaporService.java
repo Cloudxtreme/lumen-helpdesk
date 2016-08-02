@@ -27,7 +27,7 @@ import javax.inject.Inject;
 @Service
 public class LaporService {
 
-    public static final float THRESHOLD = 11f;
+    public static final float THRESHOLD = 10f;
     private static Logger log = LoggerFactory.getLogger(LaporService.class);
 
 //    @Inject
