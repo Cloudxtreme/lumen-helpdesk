@@ -1,5 +1,6 @@
 package org.lskk.lumen.helpdesk;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.TelegramApiException;
@@ -9,6 +10,7 @@ import org.telegram.telegrambots.TelegramBotsApi;
  * Created by ceefour on 23/06/2016.
  */
 @Configuration
+@ConditionalOnProperty("helpdesk.telegram.enabled")
 public class TelegramConfig {
 
     @Bean
