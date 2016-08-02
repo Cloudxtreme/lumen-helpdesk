@@ -25,3 +25,7 @@
 ## REST API
 
 Access via http://localhost:8116/
+
+## SparkUI
+
+Access via http://localhost:4040/
