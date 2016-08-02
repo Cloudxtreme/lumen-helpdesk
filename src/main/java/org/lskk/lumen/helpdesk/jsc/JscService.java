@@ -122,7 +122,7 @@ public class JscService {
                         row.getHospitalName(), row.getHospitalAddress(), row.getDistrictName(), row.getHospitalPhone()));
                 final String gmapsQuery = String.format("Rumah Sakit %s, %s, %s, Jakarta",
                         row.getHospitalName(), row.getHospitalAddress(), row.getDistrictName());
-                row.setGmapsUri("http://maps.google.co.id/?q=" + URLEncoder.encode(gmapsQuery, "UTF-8"));
+                row.setGmapsUri("https://www.google.co.id/maps/?q=" + URLEncoder.encode(gmapsQuery, "UTF-8"));
             }
             return row;
         }), Encoders.kryo(HelpdeskMessage.class));

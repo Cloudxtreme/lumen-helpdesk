@@ -11,8 +11,10 @@ import org.lskk.lumen.helpdesk.submit.SubmitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.soluvas.socmed.TwitterAuthorization;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import twitter4j.*;
 import twitter4j.auth.AccessToken;
 
@@ -27,10 +29,13 @@ import java.util.stream.Stream;
  * Created by ceefour on 02/08/2016.
  */
 @Configuration
+@ConditionalOnProperty("helpdesk.twitter.enabled")
 public class TwitterHelpdeskConfig {
 
     private static Logger log = LoggerFactory.getLogger(TwitterHelpdeskConfig.class);
 
+    @Inject
+    private Environment env;
     @Inject
     private TwitterFactory twitterFactory;
     @Inject
