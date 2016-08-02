@@ -114,4 +114,10 @@ public class TwitterHelpdeskConfig {
         return twitterStream;
     }
 
+    public void updateStatus(StatusUpdate update) throws TwitterException {
+        final AccessToken accessToken = new AccessToken(twitterAuthorization.getAccessToken(), twitterAuthorization.getAccessTokenSecret());
+        final Twitter twitter = twitterFactory.getInstance(accessToken);
+        twitter.updateStatus(update);
+    }
+
 }

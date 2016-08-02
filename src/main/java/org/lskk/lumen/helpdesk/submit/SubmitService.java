@@ -1,5 +1,6 @@
 package org.lskk.lumen.helpdesk.submit;
 
+import com.google.common.collect.Iterables;
 import org.apache.spark.api.java.function.MapFunction;
 import org.apache.spark.api.java.function.MapPartitionsFunction;
 import org.apache.spark.sql.Dataset;
@@ -7,6 +8,7 @@ import org.apache.spark.sql.Encoders;
 import org.apache.spark.sql.SparkSession;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.apache.tomcat.jdbc.pool.PoolProperties;
+import org.lskk.lumen.helpdesk.escalation.EscalationService;
 import org.lskk.lumen.helpdesk.jsc.JscService;
 import org.lskk.lumen.helpdesk.lapor.LaporService;
 import org.postgresql.Driver;
@@ -40,6 +42,8 @@ public class SubmitService {
     private JscService jscService;
     @Inject
     private LaporService laporService;
+    @Inject
+    private EscalationService escalationService;
 
     public HelpdeskResult submit(HelpdeskInput input) {
         final long startTime = System.currentTimeMillis();
@@ -50,9 +54,16 @@ public class SubmitService {
         // Prioritize JSC result if possible
         final HelpdeskResult helpdeskResult = jscResult;
         for (int i = 0; i < helpdeskResult.getMessages().size(); i++) {
-            if (null == helpdeskResult.getMessages().get(i).getResponseText()) {
+            if (null == helpdeskResult.getMessages().get(i).getResponseText() && null != laporResult.getMessages().get(i).getResponseText()) {
                 helpdeskResult.getMessages().set(i, laporResult.getMessages().get(i));
             }
+        }
+
+        @Nullable
+        final HelpdeskMessage first = Iterables.getFirst(helpdeskResult.getMessages(), null);
+        log.info("First message response: {}", first);
+        if (null != first && null == first.getResponseText()) {
+            escalationService.receiveUnhandledMessage(first);
         }
 
         final int elapsedMillis = (int) (System.currentTimeMillis() - startTime);

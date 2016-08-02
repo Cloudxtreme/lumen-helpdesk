@@ -11,6 +11,21 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class HelpdeskMessage implements Serializable {
 
+    public enum EscalationState {
+        /**
+         * Not yet escalated or pending escalation.
+         */
+        NONE,
+        /**
+         * Asked to staff, but hasn't yet received an answer.
+         */
+        ASKED,
+        /**
+         * Answer has been given by staff (should be removed from {@link org.lskk.lumen.helpdesk.escalation.EscalationService#messageQueue}).
+         */
+        ANSWERED
+    }
+
     private Long id;
     private Long channelSenderId;
     private String channelSenderScreenName;
@@ -28,6 +43,7 @@ public class HelpdeskMessage implements Serializable {
     private Float hospitalLon;
     private String responseText;
     private String gmapsUri;
+    private EscalationState escalationState;
 
     public Long getId() {
         return id;
@@ -167,6 +183,14 @@ public class HelpdeskMessage implements Serializable {
 
     public void setGmapsUri(String gmapsUri) {
         this.gmapsUri = gmapsUri;
+    }
+
+    public EscalationState getEscalationState() {
+        return escalationState;
+    }
+
+    public void setEscalationState(EscalationState escalationState) {
+        this.escalationState = escalationState;
     }
 
     @Override

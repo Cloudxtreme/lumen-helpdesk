@@ -5,5 +5,6 @@ package org.lskk.lumen.helpdesk.submit;
  */
 public enum InputKind {
     UNKNOWN,
-    GENERAL_HOSPITAL_IN_DISTRICT
+    GENERAL_HOSPITAL_IN_DISTRICT,
+    ESCALATION
 }
