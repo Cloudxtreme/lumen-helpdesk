@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.TelegramBotsApi;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 /**
  * Created by ceefour on 23/06/2016.
@@ -13,7 +12,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 public class TelegramConfig {
 
     @Bean
-    public TelegramLongPollingBot jakartaCityBot() {
+    public JakartaCityBot jakartaCityBot() {
         return new JakartaCityBot();
     }
 
