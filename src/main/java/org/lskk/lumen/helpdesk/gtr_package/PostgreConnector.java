@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -21,11 +22,15 @@ public class PostgreConnector {
     @Inject
     private DataSourceProperties dp;
 
+    @Inject
+    private DataSource ds;
+
     public void startConnection(){
         this.c = null;
         try{
-            Class.forName("org.postgresql.Driver");
-            this.c = DriverManager.getConnection(dp.getUrl(), dp.getUsername(), dp.getPassword());
+//            Class.forName("org.postgresql.Driver");
+//            this.c = DriverManager.getConnection(dp.getUrl(), dp.getUsername(), dp.getPassword());
+            this.c = ds.getConnection();
         }catch(Exception e){
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());
@@ -84,16 +89,24 @@ public class PostgreConnector {
 //    }
 
     public LinkedList selectOperation(String tableName){
-        LinkedList text = new LinkedList();
-        try (Statement stmt = this.c.createStatement()) {
+        LinkedList text = null;
+        try (Connection c = ds.getConnection()) {
+            text = new LinkedList();
+            try (Statement stmt = this.c.createStatement()) {
 
-            try (ResultSet result = stmt.executeQuery("SELECT * FROM " + tableName + ";")) {
-                while (result.next()) {
-                    text.add(result.getString("text"));
+                try (ResultSet result = stmt.executeQuery("SELECT * FROM " + tableName + ";")) {
+                    while (result.next()) {
+                        text.add(result.getString("text"));
+                    }
                 }
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                System.exit(0);
             }
-        }catch(Exception e){
-            System.err.println(e.getClass().getName()+": "+e.getMessage());
+
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
 
