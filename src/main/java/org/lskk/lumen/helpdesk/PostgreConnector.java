@@ -77,15 +77,13 @@ public class PostgreConnector {
 
     public LinkedList selectOperation(String tableName){
         LinkedList text = new LinkedList();
-        Statement stmt = null;
-        try{
-            stmt = this.c.createStatement();
-            ResultSet result = stmt.executeQuery("SELECT * FROM "+tableName+";");
-            while(result.next()){
-                text.add(result.getString("text"));
+        try (Statement stmt = this.c.createStatement()) {
+
+            try (ResultSet result = stmt.executeQuery("SELECT * FROM " + tableName + ";")) {
+                while (result.next()) {
+                    text.add(result.getString("text"));
+                }
             }
-            result.close();
-            stmt.close();
         }catch(Exception e){
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);

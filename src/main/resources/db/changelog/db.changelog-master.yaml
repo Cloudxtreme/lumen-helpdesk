@@ -1,1 +1,246 @@
 databaseChangeLog:
+  - changeSet:
+      id: fuzzystrmatch
+      author: ceefour
+      runOnChange: true
+      changes:
+        - sql:
+            "CREATE EXTENSION IF NOT EXISTS fuzzystrmatch SCHEMA public"
+  - changeSet:
+      id: postgis
+      author: ceefour
+      runOnChange: true
+      changes:
+        - sql:
+            "CREATE EXTENSION IF NOT EXISTS postgis SCHEMA public"
+  - changeSet:
+      id: district
+      author: ceefour
+      changes:
+        - createTable:
+            schemaName: lumen
+            tableName: district
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: province_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: province_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: city_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: geometry
+                  type: geography(POLYGON, 4326)
+                  constraints:
+                    nullable: false
+#              - column:
+#                  name: creation_time
+#                  type: timestamp with time zone
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: modification_time
+#                  type: timestamp with time zone
+#                  constraints:
+#                    nullable: false
+        - createIndex:
+            indexName: ik_district_name
+            schemaName: lumen
+            tableName: district
+            columns:
+              - name: name
+#        - createIndex:
+#            indexName: ik_district_creation_time
+#            schemaName: lumen
+#            tableName: district
+#            columns:
+#              - name: creation_time
+#        - createIndex:
+#            indexName: ik_district_modification_time
+#            schemaName: lumen
+#            tableName: district
+#            columns:
+#              - name: modification_time
+        - createIndex:
+            indexName: ik_district_province_id
+            schemaName: lumen
+            tableName: district
+            columns:
+              - name: province_id
+        - createIndex:
+            indexName: ik_district_city_id
+            schemaName: lumen
+            tableName: district
+            columns:
+              - name: city_id
+        - sql: |
+            CREATE INDEX ik_district_geometry ON lumen.district USING GIST ( geometry )
+  - changeSet:
+      id: general_hospital
+      author: ceefour
+      changes:
+        - createTable:
+            schemaName: lumen
+            tableName: general_hospital
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: kind
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+#              - column:
+#                  name: creation_time
+#                  type: timestamp with time zone
+#                  constraints:
+#                    nullable: false
+#              - column:
+#                  name: modification_time
+#                  type: timestamp with time zone
+#                  constraints:
+#                    nullable: false
+              - column:
+                  name: location_address
+                  type: varchar(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location_lat
+                  type: float(24)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: location_lon
+                  type: float(24)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: postal_code
+                  type: varchar(255)
+              - column:
+                  name: phone0
+                  type: varchar(255)
+              - column:
+                  name: phone1
+                  type: varchar(255)
+              - column:
+                  name: phone2
+                  type: varchar(255)
+              - column:
+                  name: faximile0
+                  type: varchar(255)
+              - column:
+                  name: faximile1
+                  type: varchar(255)
+              - column:
+                  name: website
+                  type: varchar(1000)
+              - column:
+                  name: email
+                  type: varchar(1000)
+              - column:
+                  name: city_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: district_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: village_id
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lat
+                  type: float(24)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: lon
+                  type: float(24)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: geometry
+                  type: geography(POINT, 4326)
+                  constraints:
+                    nullable: false
+        - createIndex:
+            indexName: ik_general_hospital_name
+            schemaName: lumen
+            tableName: general_hospital
+            columns:
+              - name: name
+#        - createIndex:
+#            indexName: ik_general_hospital_creation_time
+#            schemaName: lumen
+#            tableName: general_hospital
+#            columns:
+#              - name: creation_time
+#        - createIndex:
+#            indexName: ik_general_hospital_modification_time
+#            schemaName: lumen
+#            tableName: general_hospital
+#            columns:
+#              - name: modification
+        - createIndex:
+            indexName: ik_general_hospital_kind
+            schemaName: lumen
+            tableName: general_hospital
+            columns:
+              - name: kind
+        - createIndex:
+            indexName: ik_general_hospital_city_id
+            schemaName: lumen
+            tableName: general_hospital
+            columns:
+              - name: city_id
+        - createIndex:
+            indexName: ik_general_hospital_district_id
+            schemaName: lumen
+            tableName: general_hospital
+            columns:
+              - name: district_id
+        - createIndex:
+            indexName: ik_general_hospital_village_id
+            schemaName: lumen
+            tableName: general_hospital
+            columns:
+              - name: village_id
+        - sql: |
+            CREATE INDEX ik_general_hospital_geometry ON lumen.general_hospital USING GIST ( geometry )

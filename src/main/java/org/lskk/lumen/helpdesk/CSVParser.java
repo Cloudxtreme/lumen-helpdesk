@@ -20,9 +20,8 @@ public class CSVParser {
     }
 
     public void parseCSV(String path){
-        CSVReader reader = null;
-        try{
-            reader = new CSVReader(new FileReader(path));
+
+        try (CSVReader reader = new CSVReader(new FileReader(path))){
             String[]line;
 
             line = reader.readNext();
