@@ -1,5 +1,9 @@
-package org.lskk.lumen.helpdesk;
+package org.lskk.lumen.helpdesk.gtr_package;
 
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -9,15 +13,19 @@ import java.util.LinkedList;
 /**
  * Created by user on 8/1/2016.
  */
+@Service
 public class PostgreConnector {
 
     private Connection c;
+
+    @Inject
+    private DataSourceProperties dp;
 
     public void startConnection(){
         this.c = null;
         try{
             Class.forName("org.postgresql.Driver");
-            this.c = DriverManager.getConnection("jdbc:postgresql://localhost:5432/lumen_lumen_dev", "postgres", "lumen");
+            this.c = DriverManager.getConnection(dp.getUrl(), dp.getUsername(), dp.getPassword());
         }catch(Exception e){
             e.printStackTrace();
             System.err.println(e.getClass().getName()+": "+e.getMessage());

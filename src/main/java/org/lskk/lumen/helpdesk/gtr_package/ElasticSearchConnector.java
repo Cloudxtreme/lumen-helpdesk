@@ -1,4 +1,4 @@
-package org.lskk.lumen.helpdesk;
+package org.lskk.lumen.helpdesk.gtr_package;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
