@@ -1,13 +1,18 @@
-package org.lskk.lumen.helpdesk;
+package org.lskk.lumen.helpdesk.gtr_package;
 
 import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import org.springframework.stereotype.Service;
+
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.LinkedList;
 
 /**
  * Created by user on 7/31/2016.
  */
+@Service
 public class CSVParser {
 
     private int lineCount;
@@ -46,6 +51,16 @@ public class CSVParser {
                 this.lineCount++;
             }
         }catch(IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void convertToCSV(String path, LinkedList data){
+        try(CSVWriter writer = new CSVWriter(new FileWriter(path))){
+            for(int i=0; i<data.size(); i++){
+                writer.writeNext((String[])data.get(i));
+            }
+        }catch(Exception e){
             System.out.println(e.getMessage());
         }
     }

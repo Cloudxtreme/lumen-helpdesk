@@ -1,4 +1,4 @@
-package org.lskk.lumen.helpdesk;
+package org.lskk.lumen.helpdesk.gtr_package;
 
 /**
  * Created by user on 8/1/2016.

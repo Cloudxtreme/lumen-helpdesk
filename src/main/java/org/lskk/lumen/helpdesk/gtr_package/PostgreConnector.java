@@ -36,7 +36,7 @@ public class PostgreConnector {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-        System.out.println("Database Opened Succesfully");
+//        System.out.println("Database Opened Succesfully");
     }
 
 //    public void createTable(String tableName, String[] columnName){
@@ -88,15 +88,20 @@ public class PostgreConnector {
 ////        System.out.println("Data Inserted Successfully");
 //    }
 
-    public LinkedList selectOperation(String tableName){
-        LinkedList text = null;
+    public LinkedList selectTwitterStatusOperation(String tableName){
+        LinkedList allData = null;
         try (Connection c = ds.getConnection()) {
-            text = new LinkedList();
+            allData = new LinkedList();
             try (Statement stmt = this.c.createStatement()) {
 
-                try (ResultSet result = stmt.executeQuery("SELECT * FROM " + tableName + ";")) {
+                try (ResultSet result = stmt.executeQuery("SELECT ts.statusid, ts.userscreenname, ts.text, ts.creationtime FROM " + tableName + " ts;")) {
                     while (result.next()) {
-                        text.add(result.getString("text"));
+                        Object[]temp = new Object[4];
+                        temp[0] = result.getBigDecimal("statusid");
+                        temp[1] = result.getString("userscreenname");
+                        temp[2] = result.getString("text");
+                        temp[3] = result.getTimestamp("creationtime");
+                        allData.add(temp);
                     }
                 }
             } catch (Exception e) {
@@ -110,7 +115,7 @@ public class PostgreConnector {
             System.exit(0);
         }
 
-        return text;
+        return allData;
     }
 
     public void endConnection(){

@@ -22,6 +22,12 @@ public class TesterClass implements CommandLineRunner {
     @Inject
     private PostgreConnector pc;
 
+    @Inject
+    private CSVParser csvParser;
+
+    @Inject
+    private ElasticSearchConnector esConnector;
+
     public static void main(String[] args) {
         new SpringApplicationBuilder(TesterClass.class)
                 .profiles("TesterClass"/*, "rabbitmq", "drools"*/)
@@ -32,22 +38,17 @@ public class TesterClass implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-//        CSVParser parser = new CSVParser();
-//        parser.parseCSV("twitter.csv");
-//        LinkedList data = parser.getData();
 
 //        PostgreConnector pc = new PostgreConnector();
         pc.startConnection();
-        LinkedList postgreData = pc.selectOperation("lumen.twitterstatus");
+        LinkedList dataTwitter = pc.selectTwitterStatusOperation("lumen.twitterstatus");
         pc.endConnection();
 
-        ElasticSearchConnector esConnector = new ElasticSearchConnector();
+//        ElasticSearchConnector esConnector = new ElasticSearchConnector();
         esConnector.startConnection();
-        for(int i=0; i<postgreData.size(); i++) {
-            String text = (String)postgreData.get(i);
-            double maxScore = esConnector.search("logstash-2016.07.27", "_all", text);
-            System.out.println(text +" max score = "+ maxScore);
-        }
+        LinkedList finalDataToCSV = esConnector.searchTwitterStatus("logstash-2016.07.27", "_all", dataTwitter);
         esConnector.endConnection();
+
+        csvParser.convertToCSV("data/twitter-to-lapor.csv", finalDataToCSV);
     }
 }
