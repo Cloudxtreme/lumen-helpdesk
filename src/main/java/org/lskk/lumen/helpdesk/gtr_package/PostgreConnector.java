@@ -5,10 +5,7 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.LinkedList;
 
 /**
@@ -36,7 +33,6 @@ public class PostgreConnector {
             System.err.println(e.getClass().getName()+": "+e.getMessage());
             System.exit(0);
         }
-//        System.out.println("Database Opened Succesfully");
     }
 
 //    public void createTable(String tableName, String[] columnName){
@@ -87,6 +83,92 @@ public class PostgreConnector {
 //        }
 ////        System.out.println("Data Inserted Successfully");
 //    }
+
+    public void insertMasterData(String tableName, String[] columnName, Object[] data){
+        try(Connection c = ds.getConnection()){
+            try(Statement stmt = this.c.createStatement()){
+                String sql = "INSERT INTO "+tableName+" (";
+                for(int i=0; i<columnName.length-1; i++){
+                    sql += columnName[i]+",";
+                }
+                sql += columnName[columnName.length-1]+") VALUES (";
+                for(int i=0; i<data.length-1; i++){
+                    if(data[i] instanceof Integer) {
+                        sql += (int)data[i] + ",";
+                    }else if(data[i] instanceof String){
+                        sql += (String)data[i] + ",";
+                    }else if(data[i] instanceof Timestamp){
+                        sql += (Timestamp)data[i] + ",";
+                    }
+                }
+                sql += data[data.length-1]+");";
+//                System.out.println(sql);
+                stmt.executeUpdate(sql);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public String[] getMasterColumnName(String tableName){
+        String[] columnName = null;
+        int columnCount = 0;
+        try (Connection c = ds.getConnection()) {
+            try (Statement stmt = this.c.createStatement()) {
+                try (ResultSet result = stmt.executeQuery("SELECT * FROM " + tableName + ";")) {
+                    columnCount = result.getMetaData().getColumnCount();
+                    columnName = new String[columnCount];
+                    for(int i=0; i<columnCount; i++){
+                        columnName[i] = result.getMetaData().getColumnName(i+1);
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                System.exit(0);
+            }
+
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return columnName;
+    }
+
+    public LinkedList selectMaterData(String tableName){
+        LinkedList allData = null;
+        Object[] dataPerRow = null;
+        int columnCount = 0;
+        int counter = 1;
+        try (Connection c = ds.getConnection()) {
+            try (Statement stmt = this.c.createStatement()) {
+                allData = new LinkedList();
+                try (ResultSet result = stmt.executeQuery("SELECT * FROM " + tableName + ";")) {
+                    columnCount = result.getMetaData().getColumnCount();
+                    while (result.next()) {
+                        dataPerRow = new Object[columnCount];
+                        for(int j=0; j<columnCount; j++){
+                            dataPerRow[j] = result.getObject(j+1);
+                        }
+                        allData.add(dataPerRow);
+                    }
+                }
+            } catch (Exception e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+                System.exit(0);
+            }
+
+
+        }catch (Exception e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            System.exit(0);
+        }
+
+        return allData;
+    }
 
     public LinkedList selectTwitterStatusOperation(String tableName){
         LinkedList allData = null;
