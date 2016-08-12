@@ -44,6 +44,7 @@ public class HelpdeskMessage implements Serializable {
     private String responseText;
     private String gmapsUri;
     private EscalationState escalationState;
+    private int askedCount;
 
     public Long getId() {
         return id;
@@ -191,6 +192,14 @@ public class HelpdeskMessage implements Serializable {
 
     public void setEscalationState(EscalationState escalationState) {
         this.escalationState = escalationState;
+    }
+
+    public int getAskedCount() {
+        return askedCount;
+    }
+
+    public void setAskedCount(int askedCount) {
+        this.askedCount = askedCount;
     }
 
     @Override
