@@ -39,7 +39,7 @@ public class JscService {
     @Inject
     private DataSourceProperties dataSourceProps;
 
-    @Cacheable
+//    @Cacheable
     public HelpdeskResult submit(HelpdeskInput input) {
         final long startTime = System.currentTimeMillis();
 
