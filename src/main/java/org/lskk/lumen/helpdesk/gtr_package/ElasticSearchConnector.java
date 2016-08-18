@@ -12,6 +12,7 @@ import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
+import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.IndicesAdminClient;
 import org.elasticsearch.client.transport.TransportClient;
@@ -20,8 +21,11 @@ import org.elasticsearch.common.collect.ImmutableOpenMap;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.common.unit.TimeValue;
+import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
+import org.lskk.lumen.helpdesk.submit.HelpdeskMessage;
+import org.lskk.lumen.helpdesk.submit.InputKind;
 import org.springframework.stereotype.Service;
 import static org.elasticsearch.common.xcontent.XContentFactory.*;
 
@@ -52,70 +56,70 @@ public class ElasticSearchConnector {
         }
     }
 
-    public boolean createIndex(String indexName){
-        CreateIndexRequestBuilder createIndexRequestBuilder = this.client.admin().indices().prepareCreate(indexName);
-        CreateIndexResponse response = createIndexRequestBuilder.execute().actionGet();
+//    public boolean createIndex(String indexName){
+//        CreateIndexRequestBuilder createIndexRequestBuilder = this.client.admin().indices().prepareCreate(indexName);
+//        CreateIndexResponse response = createIndexRequestBuilder.execute().actionGet();
+//
+//        return response.isAcknowledged();
+//    }
 
-        return response.isAcknowledged();
-    }
+//    public void updateIndex(String[] columnName, LinkedList masterData, String aliasName){
+//        this.createIndex("index-"+this.indexNameCounter);
+//
+//        for(int i=0; i<masterData.size(); i++){
+//            Object[] arr = (Object[])masterData.get(i);
+//            for(int j=0; j<arr.length; j++){
+//                this.addDataToIndex("index-"+this.indexNameCounter, "core2", columnName[j], arr[j]);
+//            }
+//        }
+//
+//        if(this.indexNameCounter == 0){
+//            this.changeAlias(this.firstIndexName, "index-"+this.indexNameCounter, aliasName);
+//            this.deleteIndex(this.firstIndexName);
+//        }else {
+//            int oldIndexCounter = this.indexNameCounter - 1;
+//            this.changeAlias("index-" + oldIndexCounter, "index-" + this.indexNameCounter, aliasName);
+//            this.deleteIndex("index-" + oldIndexCounter);
+//
+//            if (this.indexNameCounter == 1000) {
+//                this.firstIndexName = "index-"+this.indexNameCounter;
+//                this.indexNameCounter = 0;
+//            } else {
+//                this.indexNameCounter++;
+//            }
+//        }
+//    }
 
-    public void updateIndex(String[] columnName, LinkedList masterData, String aliasName){
-        this.createIndex("index-"+this.indexNameCounter);
+//    public boolean addDataToIndex(String indexName, String typeName, String field, Object data){
+//        BulkRequestBuilder bulkRequest = this.client.prepareBulk();
+//
+//        try {
+//            bulkRequest.add(this.client.prepareIndex(indexName, typeName)
+//                .setSource(jsonBuilder()
+//                        .startObject()
+//                        .field(field, data)
+//                        .endObject()
+//                )
+//            );
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
+//
+//        BulkResponse bulkResponse = bulkRequest.get();
+//
+//        return bulkResponse.hasFailures();
+//    }
 
-        for(int i=0; i<masterData.size(); i++){
-            Object[] arr = (Object[])masterData.get(i);
-            for(int j=0; j<arr.length; j++){
-                this.addDataToIndex("index-"+this.indexNameCounter, "core2", columnName[j], arr[j]);
-            }
-        }
+//    private void changeAlias(String oldIndex, String newIndex, String aliasName){
+//        this.client.admin().indices().prepareAliases().addAlias(newIndex, aliasName).removeAlias(oldIndex, aliasName).execute().actionGet();
+//    }
 
-        if(this.indexNameCounter == 0){
-            this.changeAlias(this.firstIndexName, "index-"+this.indexNameCounter, aliasName);
-            this.deleteIndex(this.firstIndexName);
-        }else {
-            int oldIndexCounter = this.indexNameCounter - 1;
-            this.changeAlias("index-" + oldIndexCounter, "index-" + this.indexNameCounter, aliasName);
-            this.deleteIndex("index-" + oldIndexCounter);
-
-            if (this.indexNameCounter == 1000) {
-                this.firstIndexName = "index-"+this.indexNameCounter;
-                this.indexNameCounter = 0;
-            } else {
-                this.indexNameCounter++;
-            }
-        }
-    }
-
-    public boolean addDataToIndex(String indexName, String typeName, String field, Object data){
-        BulkRequestBuilder bulkRequest = this.client.prepareBulk();
-
-        try {
-            bulkRequest.add(this.client.prepareIndex(indexName, typeName)
-                .setSource(jsonBuilder()
-                        .startObject()
-                        .field(field, data)
-                        .endObject()
-                )
-            );
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        BulkResponse bulkResponse = bulkRequest.get();
-
-        return bulkResponse.hasFailures();
-    }
-
-    private void changeAlias(String oldIndex, String newIndex, String aliasName){
-        this.client.admin().indices().prepareAliases().addAlias(newIndex, aliasName).removeAlias(oldIndex, aliasName).execute().actionGet();
-    }
-
-    private boolean deleteIndex(String indexName){
-        DeleteIndexRequestBuilder deleteIndexRequestBuilder = this.client.admin().indices().prepareDelete(indexName);
-        DeleteIndexResponse response = deleteIndexRequestBuilder.execute().actionGet();
-
-        return response.isAcknowledged();
-    }
+//    private boolean deleteIndex(String indexName){
+//        DeleteIndexRequestBuilder deleteIndexRequestBuilder = this.client.admin().indices().prepareDelete(indexName);
+//        DeleteIndexResponse response = deleteIndexRequestBuilder.execute().actionGet();
+//
+//        return response.isAcknowledged();
+//    }
 
     //reference = http://stackoverflow.com/questions/25349947/how-to-find-index-by-alias-in-elasticsearch-java-api
 //    private Set<String> getIndexBasedOnAlias(String aliasName){
@@ -128,12 +132,93 @@ public class ElasticSearchConnector {
 //        return allIndices;
 //    }
 
-    public void setFirstIndexName(String firstIndexName){
-        this.firstIndexName = firstIndexName;
+//    public void setFirstIndexName(String firstIndexName){
+//        this.firstIndexName = firstIndexName;
+//    }
+
+//    public void setIndexNameCounter(int indexNameCounter){
+//        this.indexNameCounter = indexNameCounter;
+//    }
+
+    public String checkDataExistInIndex(String indexName, HelpdeskMessage message){
+        boolean indexExist = this.client.admin().indices().prepareExists(indexName).execute().actionGet().isExists();
+
+        //create index if not exist
+        if(!indexExist){
+            CreateIndexRequestBuilder createIndexRequestBuilder = this.client.admin().indices().prepareCreate(indexName);
+            CreateIndexResponse response = createIndexRequestBuilder.execute().actionGet();
+        }
+
+        String result = "";
+
+        if(indexExist) {
+            QueryBuilder qb = QueryBuilders.existsQuery("id");
+
+            SearchResponse response = this.client.prepareSearch(indexName)
+                    .setQuery(qb)
+                    .execute()
+                    .actionGet();
+
+            for (SearchHit hit : response.getHits()) {
+                result = hit.id();
+            }
+        }
+
+        return result;
     }
 
-    public void setIndexNameCounter(int indexNameCounter){
-        this.indexNameCounter = indexNameCounter;
+    public boolean addResponseDataToIndex(String indexName, String typeName, HelpdeskMessage message){
+        BulkRequestBuilder bulkRequest = this.client.prepareBulk();
+
+        try {
+            bulkRequest.add(this.client.prepareIndex(indexName, typeName)
+                .setSource(jsonBuilder()
+                        .startObject()
+                        .field("id", message.getId())
+                        .field("channelsenderid", message.getChannelSenderId())
+                        .field("channelsenderscreenname", message.getChannelSenderScreenName())
+                        .field("sendername", message.getSenderName())
+                        .field("inputtext", message.getInputText())
+                        .field("inputkind", InputKind.valueOf("UNKNOWN"))
+                        .field("districtupname", message.getDistrictUpName())
+                        .field("districtname", message.getDistrictUpName())
+                        .field("districtid", message.getDistrictId())
+                        .field("hospitalid", message.getHospitalId())
+                        .field("hospitalname", message.getHospitalName())
+                        .field("hospitaladdress", message.getHospitalAddress())
+                        .field("hospialphone", message.getHospitalPhone())
+                        .field("hospitallat", message.getHospitalLat())
+                        .field("hospitallon", message.getHospitalLon())
+                        .field("responsetext", message.getResponseText())
+                        .field("gmapsuri", message.getGmapsUri())
+                        .field("askedcount", 1)
+                        .endObject()
+                )
+            );
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        BulkResponse bulkResponse = bulkRequest.get();
+
+        return bulkResponse.hasFailures();
+    }
+
+    public void updateResponseDataInIndex(String indexName, String typeName, String id, int askedCount){
+        UpdateRequest updateRequest = new UpdateRequest();
+        updateRequest.index(indexName);
+        updateRequest.type(typeName);
+        updateRequest.id(id);
+        try {
+            updateRequest.doc(jsonBuilder()
+                    .startObject()
+                    .field("askedcount", askedCount)
+                    .endObject());
+
+            this.client.update(updateRequest).get();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public LinkedList searchTwitterStatus(String index, String field, LinkedList data){
@@ -187,60 +272,60 @@ public class ElasticSearchConnector {
 
 //    references => http://stackoverflow.com/questions/31345586/how-to-reindex-in-elasticsearch-via-java-api
 //    reindex (copy document data) from old index to new index
-    private void reindex(String oldIndex, String newIndex){
-        // Set up scroll search that would "load" data from old index
-        SearchResponse scrollResp = client.prepareSearch(oldIndex) // Specify index
-                .setSearchType(SearchType.SCAN)
-                .setScroll(new TimeValue(60000))
-                .setQuery(QueryBuilders.matchAllQuery()) // Match all query
-                .setSize(100).execute().actionGet(); //100 hits per shard will be returned for each scroll
-
-        // Set up bulk processor.
-        int BULK_ACTIONS_THRESHOLD = 1000;
-        int BULK_CONCURRENT_REQUESTS = 1;
-        BulkProcessor bulkProcessor = BulkProcessor.builder(client, new BulkProcessor.Listener() {
-            @Override
-            public void beforeBulk(long executionId, BulkRequest request) {
-//                loggger.info("Bulk Going to execute new bulk composed of {} actions", request.numberOfActions());
-            }
-
-            @Override
-            public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {
-//                logger.info("Executed bulk composed of {} actions", request.numberOfActions());
-            }
-
-            @Override
-            public void afterBulk(long executionId, BulkRequest request, Throwable failure) {
-//                logger.warn("Error executing bulk", failure);
-            }
-        }).setBulkActions(BULK_ACTIONS_THRESHOLD).setConcurrentRequests(BULK_CONCURRENT_REQUESTS).setFlushInterval(TimeValue.timeValueMillis(5)).build();
-
-        // Read from old index via created scroll searcher in Step 1 until there are mo records left and insert into new index
-        // Scroll until no hits are returned
-        while (true) {
-            scrollResp = this.client.prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(600000)).execute().actionGet();
-            //Break condition: No hits are returned
-            if (scrollResp.getHits().getHits().length == 0) {
-//                logger.info("Closing the bulk processor");
-                bulkProcessor.close();
-                break;
-            }
-            // Get results from a scan search and add it to bulk ingest
-            for (SearchHit hit: scrollResp.getHits()) {
-                IndexRequest request = new IndexRequest(newIndex, hit.type(), hit.id());
-                Map source = ((Map) ((Map) hit.getSource()));
-                request.source(source);
-                bulkProcessor.add(request);
-            }
-        }
-
-        // To assign alias to new index
-        this.client.admin().indices().prepareAliases().addAlias(newIndex, "alias_name").get();
-
-        // Remove alias from old index and then delete old index
-        this.client.admin().indices().prepareAliases().removeAlias(oldIndex, "alias_name").execute().actionGet();
-        this.client.admin().indices().prepareDelete(oldIndex).execute().actionGet();
-    }
+//    private void reindex(String oldIndex, String newIndex){
+//        // Set up scroll search that would "load" data from old index
+//        SearchResponse scrollResp = client.prepareSearch(oldIndex) // Specify index
+//                .setSearchType(SearchType.SCAN)
+//                .setScroll(new TimeValue(60000))
+//                .setQuery(QueryBuilders.matchAllQuery()) // Match all query
+//                .setSize(100).execute().actionGet(); //100 hits per shard will be returned for each scroll
+//
+//        // Set up bulk processor.
+//        int BULK_ACTIONS_THRESHOLD = 1000;
+//        int BULK_CONCURRENT_REQUESTS = 1;
+//        BulkProcessor bulkProcessor = BulkProcessor.builder(client, new BulkProcessor.Listener() {
+//            @Override
+//            public void beforeBulk(long executionId, BulkRequest request) {
+////                loggger.info("Bulk Going to execute new bulk composed of {} actions", request.numberOfActions());
+//            }
+//
+//            @Override
+//            public void afterBulk(long executionId, BulkRequest request, BulkResponse response) {
+////                logger.info("Executed bulk composed of {} actions", request.numberOfActions());
+//            }
+//
+//            @Override
+//            public void afterBulk(long executionId, BulkRequest request, Throwable failure) {
+////                logger.warn("Error executing bulk", failure);
+//            }
+//        }).setBulkActions(BULK_ACTIONS_THRESHOLD).setConcurrentRequests(BULK_CONCURRENT_REQUESTS).setFlushInterval(TimeValue.timeValueMillis(5)).build();
+//
+//        // Read from old index via created scroll searcher in Step 1 until there are mo records left and insert into new index
+//        // Scroll until no hits are returned
+//        while (true) {
+//            scrollResp = this.client.prepareSearchScroll(scrollResp.getScrollId()).setScroll(new TimeValue(600000)).execute().actionGet();
+//            //Break condition: No hits are returned
+//            if (scrollResp.getHits().getHits().length == 0) {
+////                logger.info("Closing the bulk processor");
+//                bulkProcessor.close();
+//                break;
+//            }
+//            // Get results from a scan search and add it to bulk ingest
+//            for (SearchHit hit: scrollResp.getHits()) {
+//                IndexRequest request = new IndexRequest(newIndex, hit.type(), hit.id());
+//                Map source = ((Map) ((Map) hit.getSource()));
+//                request.source(source);
+//                bulkProcessor.add(request);
+//            }
+//        }
+//
+//        // To assign alias to new index
+//        this.client.admin().indices().prepareAliases().addAlias(newIndex, "alias_name").get();
+//
+//        // Remove alias from old index and then delete old index
+//        this.client.admin().indices().prepareAliases().removeAlias(oldIndex, "alias_name").execute().actionGet();
+//        this.client.admin().indices().prepareDelete(oldIndex).execute().actionGet();
+//    }
 
     public void endConnection(){
         this.client.close();

@@ -104,6 +104,7 @@ public class TesterClass implements CommandLineRunner {
 
         //response check and save
         pc.startConnection();
+        esConnector.startConnection();
 
         HelpdeskMessage newMessage = new HelpdeskMessage();
         newMessage.setId(Long.valueOf(1));
@@ -130,6 +131,14 @@ public class TesterClass implements CommandLineRunner {
             //System.out.println("insert successful");
         }
 
+        String indexId = esConnector.checkDataExistInIndex("db-master-response", newMessage);
+        if(indexId.equalsIgnoreCase("")) {
+            esConnector.addResponseDataToIndex("db-master-response", "core2", newMessage);
+        }else{
+            esConnector.updateResponseDataInIndex("db-master-response", "core2", indexId, exist.getAskedCount());
+        }
+
+        esConnector.endConnection();
         pc.endConnection();
     }
 }
