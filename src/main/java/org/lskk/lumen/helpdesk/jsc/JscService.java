@@ -76,7 +76,7 @@ public class JscService {
         try {
             try (Connection conn = ds.getConnection()) {
                 final JdbcTemplate jdbcTemplate = new JdbcTemplate(ds);
-                resultDf.map(row -> {
+                resultDf = resultDf.parallel().map(row -> {
                     if (null != row.getDistrictUpName()) {
                         log.trace("Finding district '{}'...", row.getDistrictUpName());
 
@@ -117,7 +117,7 @@ public class JscService {
             ds.close();
         }
 
-        resultDf = resultDf.map(row -> {
+        resultDf = resultDf.parallel().map(row -> {
             if (null != row.getHospitalId()) {
                 row.setResponseText(String.format("Rumah Sakit %s, %s, %s \uD83D\uDCDE %s",
                         row.getHospitalName(), row.getHospitalAddress(), row.getDistrictName(), row.getHospitalPhone()));

@@ -2,44 +2,42 @@ package org.lskk.lumen.helpdesk.gtr_package;
 
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
-import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.joda.time.YearMonth;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import java.net.InetAddress;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
+import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 /**
  * Created by user on 8/12/2016.
  */
+@Component @Scope("prototype")
 public class C3Chart {
 
     private C3Data data;
+    @Inject
     private Client esClient;
 
-    private void startElasticSearchConnection(){
-        try {
-            //create setting for cluster name
-            Settings settings = Settings.settingsBuilder()
-                    .put("cluster.name", "cluster-tester")
-                    .put("client.transport.sniff", true).build();
+//    private void startElasticSearchConnection(){
+//        try {
+//            //create setting for cluster name
+//            Settings settings = Settings.settingsBuilder()
+//                    .put("cluster.name", "cluster-tester")
+//                    .put("client.transport.sniff", true).build();
+//
+//            this.esClient = TransportClient.builder().settings(settings).build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));;
+//        }catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
-            this.esClient = TransportClient.builder().settings(settings).build().addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName("localhost"), 9300));;
-        }catch(Exception e){
-            System.out.println(e.getMessage());
-        }
-    }
-
-    private void endElasticSearchConnection(){
-        this.esClient.close();
-    }
+//    private void endElasticSearchConnection(){
+//        this.esClient.close();
+//    }
 
     private String parseDate(String date){
         String[] splitDate = date.split("-");
@@ -77,8 +75,8 @@ public class C3Chart {
         return parsedDate;
     }
 
-    public void mostMentionedTopicsOrAreas(String indexName, String monthYear, String[] topicsOrAreas){
-        this.startElasticSearchConnection();
+    public void mostMentionedTopicsOrAreas(String indexName, YearMonth monthYear, String[] topicsOrAreas){
+//        this.startElasticSearchConnection();
 
         data = new C3Data();
         Object[] c3dataObject = null;
@@ -107,11 +105,11 @@ public class C3Chart {
             data.getColumns().add(c3dataObject);
         }
 
-        this.endElasticSearchConnection();
+//        this.endElasticSearchConnection();
     }
 
     public void totalCasesPerMonth(String indexName, int year){
-        this.startElasticSearchConnection();
+//        this.startElasticSearchConnection();
 
         data = new C3Data();
         Object[] c3dataObject = new Object[13];
@@ -138,11 +136,11 @@ public class C3Chart {
 
         data.getColumns().add(c3dataObject);
 
-        this.endElasticSearchConnection();
+//        this.endElasticSearchConnection();
     }
 
-    public void totalCasesPerDay(String indexName, String monthYear){
-        this.startElasticSearchConnection();
+    public void totalCasesPerDay(String indexName, YearMonth monthYear){
+//        this.startElasticSearchConnection();
 
         data = new C3Data();
         Object[] c3dataObject = new Object[32];
@@ -171,7 +169,7 @@ public class C3Chart {
 
         data.getColumns().add(c3dataObject);
 
-        this.endElasticSearchConnection();
+//        this.endElasticSearchConnection();
     }
 
     public C3Data getData() {
