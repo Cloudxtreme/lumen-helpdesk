@@ -8,6 +8,7 @@ import org.lskk.lumen.helpdesk.submit.HelpdeskMessage;
 import org.lskk.lumen.helpdesk.submit.HelpdeskResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -35,6 +36,7 @@ public class LaporService {
     @Inject
     private ElasticsearchOperations esTemplate;
 
+    @Cacheable
     public HelpdeskResult search(HelpdeskInput input) {
         final HelpdeskResult helpdeskResult = new HelpdeskResult();
         final long startTime = System.currentTimeMillis();
@@ -48,6 +50,7 @@ public class LaporService {
         return helpdeskResult;
     }
 
+    @Cacheable
     public HelpdeskMessage search(String phrase) {
         final long startTime = System.currentTimeMillis();
         final NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()

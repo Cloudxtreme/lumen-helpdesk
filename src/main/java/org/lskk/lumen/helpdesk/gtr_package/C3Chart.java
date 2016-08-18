@@ -4,6 +4,7 @@ import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.index.query.QueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.joda.time.LocalDate;
 import org.joda.time.YearMonth;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -85,10 +86,15 @@ public class C3Chart {
             c3dataObject = new Object[32];
             c3dataObject[0] = topicsOrAreas[i];
             for(int j=1; j<=31; j++){
-                String parsedDate = this.parseDate(monthYear+"-"+j);
-                QueryBuilder qb = null;
-                if(parsedDate != null) {
-                    qb = QueryBuilders.boolQuery().must(QueryBuilders.matchPhraseQuery("IsiLaporan", topicsOrAreas[i])).must(QueryBuilders.matchPhraseQuery("TanggalLaporanMasuk", parsedDate.toString()));
+                try {
+                    final LocalDate parsedDate = new LocalDate(monthYear.getYear(), monthYear.getMonthOfYear(), j);
+    //                String parsedDate = this.parseDate(monthYear+"-"+j);
+                    QueryBuilder qb = null;
+    //                if(parsedDate != null) {
+//                    qb = QueryBuilders.boolQuery().must(QueryBuilders.matchPhraseQuery("IsiLaporan", topicsOrAreas[i]))
+//                            .must(QueryBuilders.matchPhraseQuery("TanggalLaporanMasuk", parsedDate.toString()));
+                    qb = QueryBuilders.boolQuery().must(QueryBuilders.matchPhraseQuery("IsiLaporan", topicsOrAreas[i]))
+                            .must(QueryBuilders.matchPhraseQuery("TanggalLaporanMasuk", parsedDate.toString("dd MMMM yyyy")));
 
                     response = this.esClient.prepareSearch(indexName)
                             .setQuery(qb)
@@ -96,7 +102,7 @@ public class C3Chart {
                             .actionGet();
 
                     c3dataObject[j] = response.getHits().getTotalHits();
-                }else{
+                } catch (Exception ex) {
                     c3dataObject[j] = 0;
                 }
 
@@ -108,7 +114,7 @@ public class C3Chart {
 //        this.endElasticSearchConnection();
     }
 
-    public void totalCasesPerMonth(String indexName, int year){
+    public void totalCasesPerMonth(String indexName, int year) {
 //        this.startElasticSearchConnection();
 
         data = new C3Data();

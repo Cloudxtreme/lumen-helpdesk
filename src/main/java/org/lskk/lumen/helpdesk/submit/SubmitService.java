@@ -15,6 +15,7 @@ import org.postgresql.Driver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -45,6 +46,7 @@ public class SubmitService {
     @Inject
     private EscalationService escalationService;
 
+    @Cacheable
     public HelpdeskResult submit(HelpdeskInput input) {
         final long startTime = System.currentTimeMillis();
 

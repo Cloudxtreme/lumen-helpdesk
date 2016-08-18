@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Profile;
 
 import java.util.LinkedList;
@@ -20,6 +21,7 @@ import java.util.LinkedList;
 
 @Profile({"helpdeskApp"})
 //@Import(LumenCoreConfig.class)
+@EnableCaching
 class HelpdeskApp implements CommandLineRunner {
 
     private static final Logger log = LoggerFactory.getLogger(HelpdeskApp.class);
