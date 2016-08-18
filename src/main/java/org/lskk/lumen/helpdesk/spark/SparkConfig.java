@@ -13,7 +13,7 @@ import java.io.File;
 /**
  * Created by ceefour on 01/08/2016.
  */
-@Configuration
+//@Configuration
 public class SparkConfig {
 
     @Bean(destroyMethod = "stop")
