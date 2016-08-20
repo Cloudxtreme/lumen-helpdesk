@@ -44,3 +44,4 @@ social/config/agent/arkan.json
 /config/*.TwitterApp.jsonld
 /config/agent/*.TwitterAuthorization.jsonld
 /config/agent/*.AgentSocialConfig.json
+/config/logback.xml
