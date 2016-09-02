@@ -10,7 +10,6 @@ import org.postgresql.Driver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -39,7 +38,6 @@ public class JscService {
     @Inject
     private DataSourceProperties dataSourceProps;
 
-//    @Cacheable
     public HelpdeskResult submit(HelpdeskInput input) {
         final long startTime = System.currentTimeMillis();
 

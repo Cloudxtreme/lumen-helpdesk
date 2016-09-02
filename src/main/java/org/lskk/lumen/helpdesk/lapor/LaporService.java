@@ -1,6 +1,5 @@
 package org.lskk.lumen.helpdesk.lapor;
 
-import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.SearchHit;
 import org.lskk.lumen.helpdesk.submit.HelpdeskInput;
@@ -8,15 +7,10 @@ import org.lskk.lumen.helpdesk.submit.HelpdeskMessage;
 import org.lskk.lumen.helpdesk.submit.HelpdeskResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
 
@@ -36,7 +30,6 @@ public class LaporService {
     @Inject
     private ElasticsearchOperations esTemplate;
 
-//    @Cacheable
     public HelpdeskResult search(HelpdeskInput input) {
         final HelpdeskResult helpdeskResult = new HelpdeskResult();
         final long startTime = System.currentTimeMillis();
@@ -50,7 +43,6 @@ public class LaporService {
         return helpdeskResult;
     }
 
-//    @Cacheable
     public HelpdeskMessage search(String phrase) {
         final long startTime = System.currentTimeMillis();
         final NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
