@@ -5,13 +5,13 @@
     <title>Lumen Helpdesk Analytics</title>
 </head>
 <body>
-<button onclick="generate()">PRINT REPORT ANALYTIC DATA</button>
+<button onclick="generateReport()">PRINT REPORT ANALYTIC DATA</button>
 
 <script src="js/jspdf.min.js"></script>
 <script src="js/jspdf.plugin.autotable.src.js"></script>
 
 <script>
-                function generate(){
+                function generateReport(){
                         var columns = ["No","Status","Tanggal Disposisi","Area ID","Disposisi Instan ID","Judul Laporan","Kategori ID","Pelapor","Tanggal Laporan Aktivitas Terakhir","Tanggal Laporan Di tutup","Tracking ID","Created at","ID","Updated at","Area","Disposisi Instansi","Kategori","Timestamp Laporan Masuk","Timestamp Tanggal Aktivitas Terakhir","Timestamp Tanggal Disposisi","Timestamp Laporan Ditutup"];
                         var data = [
                             [1, "Selsesai", "08 September 2016", 2443,63,"E-KTP Belum beres",149,"Juli Muryanto","08 September 2016","06 October 2016","07 September 2016",1372600,"2015-12-04 02:00:00",83165,"2015-12-04 02:00:00","Mangun Jaya","Kementrian","Administrasu",1441615760,1441693326,1441691457,1441105646],
