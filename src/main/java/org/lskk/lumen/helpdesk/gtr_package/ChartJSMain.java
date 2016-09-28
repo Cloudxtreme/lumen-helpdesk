@@ -85,7 +85,7 @@ public class ChartJSMain {
 
     public void mostMentionedTopicsOrAreas(String indexName, YearMonth monthYear, String[] topicsOrAreas){
         this.startElasticSearchConnection();
-        this.labels = new String[]{"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+        this.labels = new String[31];
         this.datasets = new ArrayList<>();
         Object[] c3dataObject = null;
         SearchResponse response = null;
@@ -95,6 +95,7 @@ public class ChartJSMain {
             tempData.setLabel(topicsOrAreas[i]);
             c3dataObject = new Object[31];
             for(int j=0; j<31; j++){
+                this.labels[j] = j+1+"";
                 try {
                     final LocalDate parsedDate = new LocalDate(monthYear.getYear(), monthYear.getMonthOfYear(), j+1);
                     //                String parsedDate = this.parseDate(monthYear+"-"+j);
