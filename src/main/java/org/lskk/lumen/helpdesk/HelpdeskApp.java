@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAuto
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Profile;
+import org.telegram.telegrambots.ApiContextInitializer;
 
 /**
  * Aplikasi utama untuk menjalankan helpdesk.
@@ -23,6 +24,7 @@ class HelpdeskApp implements CommandLineRunner {
     private static final Logger log = LoggerFactory.getLogger(HelpdeskApp.class);
 
     public static void main(String[] args) {
+        ApiContextInitializer.init();
         new SpringApplicationBuilder(HelpdeskApp.class)
                 .profiles("helpdeskApp"/*, "rabbitmq", "drools"*/)
                 .run(args);
