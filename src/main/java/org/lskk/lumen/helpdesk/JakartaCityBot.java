@@ -3,11 +3,11 @@ package org.lskk.lumen.helpdesk;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
-import org.telegram.telegrambots.TelegramApiException;
 import org.telegram.telegrambots.api.methods.send.SendMessage;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.api.objects.Update;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 
 import javax.inject.Inject;
 import java.io.File;
@@ -56,65 +56,65 @@ public class JakartaCityBot extends TelegramLongPollingBot {
                     if (normalized.contains("mrt")) {
                         final SendPhoto replySend = new SendPhoto();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setNewPhoto(new File("images/mrt-jakarta.jpg"));
                         replySend.setCaption(update.getMessage().getFrom().getFirstName() + ", MRT Jakarta dijadwalkan mulai beroperasi pada awal tahun 2019. Wah, Bang SOLeh dan Mpok LUSI ga sabar rasanya! \uD83D\uDE01");
                         sendPhoto(replySend);
                     } else if (normalized.contains("skdu")) {
                         final SendPhoto replySend = new SendPhoto();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setNewPhoto(new File("images/skdu.jpg"));
                         replySend.setCaption(update.getMessage().getFrom().getFirstName() + "... kini membuat SKDU semakin simple! Tidak perlu ada survey sehingga tdk perlu merujuk kepada zonasi. Silakan klik link https://t.co/VYYgNdDmWe ya \uD83D\uDE01 #MelayaniJakarta");
                         sendPhoto(replySend);
 
                         //                    final SendMessage replySend = new SendMessage();
                         //                    replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        //                    replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        //                    replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         //                    replySend.setText(update.getMessage().getFrom().getFirstName() + ", silakan klik link https://t.co/VYYgNdDmWe ya :)");
                         //                    sendMessage(replySend);
                     } else if (normalized.contains("domisili")) {
                         final SendMessage replySend = new SendMessage();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setText(update.getMessage().getFrom().getFirstName() + ", betul. Hanya saja aturannya diperbaharui sehingga memudahkan pemohon yang ingin membuat SKDU.");
                         sendMessage(replySend);
                     } else if (normalized.contains("izin")) {
                         final SendPhoto replySend = new SendPhoto();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setNewPhoto(new File("images/izin-usaha.jpg"));
                         replySend.setCaption(update.getMessage().getFrom().getFirstName() + ", ini alasannya kenapa harus memiliki izin usaha.");
                         sendPhoto(replySend);
                     } else if (normalized.matches(".*(bptsp|layanan).*")) {
                         final SendPhoto replySend = new SendPhoto();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setNewPhoto(new File("images/bptsp.jpg"));
                         replySend.setCaption(update.getMessage().getFrom().getFirstName() + ".. Pemprov DKI Jakarta terus melakukan inovasi, salah satunya melalui BPTSP #MelayaniJakarta");
                         sendPhoto(replySend);
                     } else if (normalized.matches(".*(hebat|kasih|terima kasih|trmksh|terimakasih|bagus|keren|makasih).*")) {
                         final SendMessage replySend = new SendMessage();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setText("Terima kasih " + update.getMessage().getFrom().getFirstName() + " \uD83D\uDE01. Kami selalu berusaha meningkatkan pelayanan.");
                         sendMessage(replySend);
                     } else if (normalized.matches(".*(jelek|parah|gimana sih|capek|ancur|sebel|sebal|bete|nyebelin).*")) {
                         final SendMessage replySend = new SendMessage();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setText("Mohon maaf " + update.getMessage().getFrom().getFirstName() + " atas ketidaknyamanannya. \uD83D\uDE14");
                         sendMessage(replySend);
                     } else if (normalized.matches(".*(halo|helo|hello|hai|hallo|selamat).*")) {
                         final SendMessage replySend = new SendMessage();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setText(update.getMessage().getFrom().getFirstName() + ", ada yang dapat kami bantu? \uD83D\uDE01");
                         sendMessage(replySend);
                     } else {
                         final SendMessage replySend = new SendMessage();
                         replySend.setChatId(String.valueOf(update.getMessage().getChatId()));
-                        replySend.setReplayToMessageId(update.getMessage().getMessageId());
+                        replySend.setReplyToMessageId(update.getMessage().getMessageId());
                         replySend.setText(update.getMessage().getFrom().getFirstName() + "... Thanks, " + update.getMessage().getText());
                         sendMessage(replySend);
                     }
