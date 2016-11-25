@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.joda.time.MonthDay;
 import org.joda.time.YearMonth;
 import org.lskk.lumen.helpdesk.gtr_package.C3Chart;
+import org.lskk.lumen.helpdesk.gtr_package.ChartJSMain;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,15 +27,19 @@ public class AnalyticsController {
     @Inject
     private ObjectMapper objMapper;
 
+//    @Inject
+//    private Provider<C3Chart> c3ChartProvider;
+
     @Inject
-    private Provider<C3Chart> c3ChartProvider;
+    private Provider<ChartJSMain> chartJSMainProvider;
 
     @RequestMapping(method = RequestMethod.GET, path = "mostMentionedTopics", produces = "application/json")
-    public C3Chart mostMentionedTopics(@RequestParam("topic") String[] upTopics,
+    public ChartJSMain mostMentionedTopics(@RequestParam("topic") String[] upTopics,
                                        @RequestParam("yearMonth") YearMonth yearMonth) throws JsonProcessingException {
         //c3 chart ready
 //        C3Chart topics = new C3Chart();
-        C3Chart topics = c3ChartProvider.get();
+//        C3Chart topics = c3ChartProvider.get();
+        ChartJSMain topics = chartJSMainProvider.get();
 //        topics.mostMentionedTopicsOrAreas("logstash-2016.07.27","2015-02", new String[]{"sampah","macet"});
         topics.mostMentionedTopicsOrAreas("logstash-2016.07.27", yearMonth, upTopics);
 //        String resultJSON = objMapper.writeValueAsString(topics);
@@ -43,11 +48,12 @@ public class AnalyticsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "mostMentionedAreas", produces = "application/json")
-    public C3Chart mostMentionedAreas(@RequestParam("topic") String[] upTopics,
+    public ChartJSMain mostMentionedAreas(@RequestParam("topic") String[] upTopics,
                                       @RequestParam("yearMonth") YearMonth yearMonth) throws JsonProcessingException {
 //        C3Chart areas = new C3Chart();
 //        areas.mostMentionedTopicsOrAreas("logstash-2016.07.27","2015-09", new String[]{"jelambar","kemayoran"});
-        C3Chart areas = c3ChartProvider.get();
+//        C3Chart areas = c3ChartProvider.get();
+        ChartJSMain areas = chartJSMainProvider.get();
         areas.mostMentionedTopicsOrAreas("logstash-2016.07.27", yearMonth, upTopics);
         return areas;
 //        String resultJSON2 = objMapper.writeValueAsString(areas);
@@ -56,8 +62,9 @@ public class AnalyticsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "totalCasesPerMonth", produces = "application/json")
-    public C3Chart totalCasesPerMonth(@RequestParam("year") int year) throws JsonProcessingException {
-        C3Chart totalCasesPerMonth = new C3Chart();
+    public ChartJSMain totalCasesPerMonth(@RequestParam("year") int year) throws JsonProcessingException {
+//        C3Chart totalCasesPerMonth = new C3Chart();
+        ChartJSMain totalCasesPerMonth = chartJSMainProvider.get();
         totalCasesPerMonth.totalCasesPerMonth("logstash-2016.07.27", year);
         return totalCasesPerMonth;
 //        String resultJSON3 = objMapper.writeValueAsString(totalCasesPerMonth);
@@ -66,10 +73,11 @@ public class AnalyticsController {
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "totalCasesPerDay", produces = "application/json")
-    public C3Chart totalCasesPerDay(@RequestParam("yearMonth") YearMonth yearMonth) throws JsonProcessingException {
+    public ChartJSMain totalCasesPerDay(@RequestParam("yearMonth") YearMonth yearMonth) throws JsonProcessingException {
 //        C3Chart totalCasesPerDay = new C3Chart();
 //        totalCasesPerDay.totalCasesPerDay("logstash-2016.07.27", "2015-02");
-        C3Chart totalCasesPerDay = c3ChartProvider.get();
+//        C3Chart totalCasesPerDay = c3ChartProvider.get();
+        ChartJSMain totalCasesPerDay = chartJSMainProvider.get();
         totalCasesPerDay.totalCasesPerDay("logstash-2016.07.27", yearMonth);
 //        String resultJSON4 = objMapper.writeValueAsString(totalCasesPerDay);
 //        log.info("JSON = {}", resultJSON4);

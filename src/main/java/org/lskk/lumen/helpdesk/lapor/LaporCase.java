@@ -111,7 +111,7 @@ public class LaporCase implements Serializable {
         return host;
     }
 
-    public void setHost(String host) {
+    public void setHost( String host) {
         this.host = host;
     }
 
