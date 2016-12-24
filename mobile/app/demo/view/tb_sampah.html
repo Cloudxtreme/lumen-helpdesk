@@ -1,0 +1,13 @@
+<div class="card card-w-title">
+            <h1>Laporan Sampah</h1>
+            <button pButton type="button" label="+ Add New Article" style="margin-bottom:10px" class="cyan-btn"></button>
+            <p-dataTable [value]="sampahs" selectionMode="single" [(selection)]="selectedSampah" 
+                [paginator]="true" [rows]="10" [responsive]="true">
+                <header>Data Laporan Sampah</header>
+                <p-column field="id_lapor" header="ID LAPOR" [sortable]="true"></p-column>
+                <p-column field="pelapor" header="PELAPOR" [sortable]="true"></p-column>
+                <p-column field="area" header="AREA" [sortable]="true"></p-column>
+                <p-column field="tanggal_lapor" header="TANGGAL LAPOR" [sortable]="true"></p-column>
+                <p-column field="judul_lapor" header="JUDUL LAPOR" [sortable]="true"></p-column>
+            </p-dataTable>
+        </div>

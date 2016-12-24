@@ -1,0 +1,157 @@
+{
+    "data":[
+        {
+            "id_lapor":"22022",
+            "pelapor":"628214771xxxx",
+            "area":"Nusa Tenggara Timur",
+            "tanggal_lapor":"7/27/2012 1:00",
+            "judul_lapor":"Tenaga Dokter di Nusa Tenggara Timur"
+        },
+        {
+            "id_lapor":"22033",
+            "pelapor":"628574613xxxx",
+            "area":"Nasional",
+            "tanggal_lapor":"9/25/2012 1:00",
+            "judul_lapor":"Standarisasi Pornografi & Pornoaksi"
+        },
+        {
+            "id_lapor":"22039",
+            "pelapor":"628214771xxxx",
+            "area":"Nusa Tenggara Timur",
+            "tanggal_lapor":"7/27/2012 1:00",
+            "judul_lapor":"Biaya Operasi untuk Pasien Tidak Mampu"
+        },
+        {
+            "id_lapor":"22067",
+            "pelapor":"628139296xxxx ",
+            "area":"Maluku Utara",
+            "tanggal_lapor":"1/8/2013 1:00",
+            "judul_lapor":"Pembayaran Gaji Dokter PTT di Maluku Utara"
+        },
+        {
+            "id_lapor":"22145",
+            "pelapor":"628215460xxxx",
+            "area":"Kalimantan Tengah",
+            "tanggal_lapor":"6/25/2012 12:53",
+            "judul_lapor":"Pembalakan Liar di Kalimantan Tengah"
+        },
+        {
+            "id_lapor":"22222",
+            "pelapor":"62816114XXXX",
+            "area":"Lampung",
+            "tanggal_lapor":"1/8/2013 1:00",
+            "judul_lapor":"Tunjangan Sertifikasi Guru Triwulan 1 di Lampung Selatan"
+        },
+        {
+           "id_lapor":"22225",
+            "pelapor":"628529934xxxx",
+            "area":"Nasional",
+            "tanggal_lapor":"9/24/2012 1:00",
+            "judul_lapor":"Uji Kompetensi Tenaga Honorer Kategori 2"
+        },
+        {
+            "id_lapor":"22253",
+            "pelapor":"628137169xxxx",
+            "area":"Nasional",
+            "tanggal_lapor":"6/25/2012 14:02",
+            "judul_lapor":"Seleksi Penerimaan PT. PINDAD"
+        },
+        {
+            "id_lapor":"22287",
+            "pelapor":"628138824XXXX",
+            "area":"Nasional",
+            "tanggal_lapor":"1/8/2013 1:00",
+            "judul_lapor":"Gaji PNS"
+        },
+        {
+            "id_lapor":"22288",
+            "pelapor":"628135968xxxx",
+            "area":"Jawa Timur",
+            "tanggal_lapor":"1/8/2013 1:00",
+            "judul_lapor":"Penipuan PNS"
+        },
+        {
+            "id_lapor":"22289",
+            "pelapor":"628533836xxxx",
+            "area":"Nusa Tenggara Barat",
+            "tanggal_lapor":"7/30/2012 1:00",
+            "judul_lapor":"Jam Masuk Dokter di Kota Bima"
+        },{
+            "id_lapor":"22022",
+            "pelapor":"628214771xxxx",
+            "area":"Nusa Tenggara Timur",
+            "tanggal_lapor":"7/27/2012 1:00",
+            "judul_lapor":"Tenaga Dokter di Nusa Tenggara Timur"
+        },
+        {
+            "id_lapor":"22033",
+            "pelapor":"628574613xxxx",
+            "area":"Nasional",
+            "tanggal_lapor":"9/25/2012 1:00",
+            "judul_lapor":"Standarisasi Pornografi & Pornoaksi"
+        },
+        {
+            "id_lapor":"22039",
+            "pelapor":"628214771xxxx",
+            "area":"Nusa Tenggara Timur",
+            "tanggal_lapor":"7/27/2012 1:00",
+            "judul_lapor":"Biaya Operasi untuk Pasien Tidak Mampu"
+        },
+        {
+            "id_lapor":"22067",
+            "pelapor":"628139296xxxx ",
+            "area":"Maluku Utara",
+            "tanggal_lapor":"1/8/2013 1:00",
+            "judul_lapor":"Pembayaran Gaji Dokter PTT di Maluku Utara"
+        },
+        {
+            "id_lapor":"22145",
+            "pelapor":"628215460xxxx",
+            "area":"Kalimantan Tengah",
+            "tanggal_lapor":"6/25/2012 12:53",
+            "judul_lapor":"Pembalakan Liar di Kalimantan Tengah"
+        },
+        {
+            "id_lapor":"22222",
+            "pelapor":"62816114XXXX",
+            "area":"Lampung",
+            "tanggal_lapor":"1/8/2013 1:00",
+            "judul_lapor":"Tunjangan Sertifikasi Guru Triwulan 1 di Lampung Selatan"
+        },
+        {
+           "id_lapor":"22225",
+            "pelapor":"628529934xxxx",
+            "area":"Nasional",
+            "tanggal_lapor":"9/24/2012 1:00",
+            "judul_lapor":"Uji Kompetensi Tenaga Honorer Kategori 2"
+        },
+        {
+            "id_lapor":"22253",
+            "pelapor":"628137169xxxx",
+            "area":"Nasional",
+            "tanggal_lapor":"6/25/2012 14:02",
+            "judul_lapor":"Seleksi Penerimaan PT. PINDAD"
+        },
+        {
+            "id_lapor":"22287",
+            "pelapor":"628138824XXXX",
+            "area":"Nasional",
+            "tanggal_lapor":"1/8/2013 1:00",
+            "judul_lapor":"Gaji PNS"
+        },
+        {
+            "id_lapor":"22288",
+            "pelapor":"628135968xxxx",
+            "area":"Jawa Timur",
+            "tanggal_lapor":"1/8/2013 1:00",
+            "judul_lapor":"Penipuan PNS"
+        },
+        {
+            "id_lapor":"22289",
+            "pelapor":"628533836xxxx",
+            "area":"Nusa Tenggara Barat",
+            "tanggal_lapor":"7/30/2012 1:00",
+            "judul_lapor":"Jam Masuk Dokter di Kota Bima"
+        }
+    ]
+}
