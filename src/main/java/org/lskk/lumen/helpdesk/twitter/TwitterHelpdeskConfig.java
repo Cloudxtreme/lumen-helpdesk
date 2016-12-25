@@ -3,6 +3,8 @@ package org.lskk.lumen.helpdesk.twitter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
 import org.apache.commons.lang3.StringUtils;
+import org.lskk.lumen.helpdesk.core.Config;
+import org.lskk.lumen.helpdesk.core.ConfigService;
 import org.lskk.lumen.helpdesk.submit.HelpdeskInput;
 import org.lskk.lumen.helpdesk.submit.HelpdeskMessage;
 import org.lskk.lumen.helpdesk.submit.HelpdeskResult;
@@ -19,6 +21,7 @@ import twitter4j.conf.ConfigurationBuilder;
 import javax.inject.Inject;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -38,12 +41,15 @@ public class TwitterHelpdeskConfig {
     private ObjectMapper objectMapper;
     @Inject
     private SubmitService submitService;
+    @Inject
+    private ConfigService configSvc;
 
     private long curHelpdeskMessageId = 0;
 
     @Bean(destroyMethod = "shutdown")
     public TwitterStream twitterStreaming() {
-        final List<String> trackedScreenNames = ImmutableList.of("lumenrobot", "dkijakarta"); // LOWERCASE PLEASE!
+        final List<String> trackedScreenNamesRaw = configSvc.get(Config.TWITTER_TRACKED_USERS, List.class);
+        final List<String> trackedScreenNames = trackedScreenNamesRaw.stream().map(it -> it.toLowerCase()).collect(Collectors.toList()); // LOWERCASE PLEASE!
 
         final TwitterApp twitterApp = twitterSvc.loadApp();
         final TwitterAuthz authz = twitterSvc.loadAuthz();

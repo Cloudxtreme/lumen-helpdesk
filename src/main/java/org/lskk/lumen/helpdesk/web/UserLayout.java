@@ -5,13 +5,21 @@ import de.agilecoders.wicket.core.markup.html.bootstrap.common.NotificationPanel
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.HtmlTag;
 import de.agilecoders.wicket.core.markup.html.bootstrap.html.MetaTag;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.icon.FontAwesomeCssReference;
+import de.agilecoders.wicket.webjars.request.resource.WebjarsCssResourceReference;
+import de.agilecoders.wicket.webjars.request.resource.WebjarsJavaScriptResourceReference;
 import org.apache.wicket.markup.head.CssHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.request.resource.CssResourceReference;
+import org.apache.wicket.request.resource.IResource;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.resource.JQueryPluginResourceReference;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -63,6 +71,10 @@ public abstract class UserLayout extends WebPage {
     public void renderHead(IHeaderResponse response) {
         super.renderHead(response);
         response.render(CssHeaderItem.forReference(FontAwesomeCssReference.instance()));
+        response.render(CssHeaderItem.forReference(new CssResourceReference(UserLayout.class, "adminlte/css/AdminLTE.min.css")));
+        response.render(CssHeaderItem.forReference(new CssResourceReference(UserLayout.class, "adminlte/css/skin-blue.min.css")));
+        response.render(JavaScriptHeaderItem.forReference(new JQueryPluginResourceReference(UserLayout.class, "adminlte/js/app.min.js")));
+        response.render(JavaScriptHeaderItem.forReference(new WebjarsJavaScriptResourceReference("jQuery-slimScroll/current/jquery.slimscroll.min.js")));
     }
 
 }

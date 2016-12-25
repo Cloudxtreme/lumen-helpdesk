@@ -12,6 +12,8 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.flow.RedirectToUrlException;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.lskk.lumen.helpdesk.core.Config;
+import org.lskk.lumen.helpdesk.core.ConfigService;
 import org.lskk.lumen.helpdesk.core.LumenException;
 import org.lskk.lumen.helpdesk.twitter.*;
 import org.slf4j.Logger;
@@ -25,6 +27,7 @@ import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Created by ceefour on 25/12/2016.
@@ -38,6 +41,8 @@ public class SettingsPage extends UserLayout {
     private Environment env;
     @Inject
     private TwitterService twitterSvc;
+    @Inject
+    private ConfigService configSvc;
 
     public SettingsPage(PageParameters parameters) {
         super(parameters);
@@ -74,9 +79,9 @@ public class SettingsPage extends UserLayout {
         add(twitterAppForm);
 
         final Form<Void> twitterAccountForm = new Form<>("twitterAccountForm");
-        twitterAccountForm.add(new Label("screenNameLabel", new PropertyModel<>(twitterAuthzModel, "screenName")));
-        twitterAccountForm.add(new Label("tokenLabel", new PropertyModel<>(twitterAuthzModel, "accessToken")));
-        twitterAccountForm.add(new Label("tokenSecretLabel", new PropertyModel<>(twitterAuthzModel, "accessTokenSecret")));
+        twitterAccountForm.add(new TextField<>("screenNameLabel", new PropertyModel<>(twitterAuthzModel, "screenName")).setEnabled(false));
+        twitterAccountForm.add(new TextField<>("tokenLabel", new PropertyModel<>(twitterAuthzModel, "accessToken")).setEnabled(false));
+        twitterAccountForm.add(new TextField<>("tokenSecretLabel", new PropertyModel<>(twitterAuthzModel, "accessTokenSecret")).setEnabled(false));
         twitterAccountForm.add(new LaddaAjaxButton("refreshAccessTokenBtn", new Model<>("Get Access Token"), Buttons.Type.Primary) {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -101,6 +106,21 @@ public class SettingsPage extends UserLayout {
             }
         });
         add(twitterAccountForm);
+
+        final Form<Void> twitterSettingsForm = new Form<>("twitterSettingsForm");
+        final String trackedScreenNames = configSvc.getJson(Config.TWITTER_TRACKED_USERS);
+        final TextField<String> trackedScreenNamesFld = new TextField<>("trackedScreenNamesFld", new Model<>(trackedScreenNames));
+        twitterSettingsForm.add(trackedScreenNamesFld);
+        twitterSettingsForm.add(new LaddaAjaxButton("saveBtn", new Model<>("Save"), Buttons.Type.Primary) {
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+                super.onSubmit(target, form);
+                configSvc.setJson(Config.TWITTER_TRACKED_USERS, trackedScreenNamesFld.getModelObject());
+                info("Settings saved.");
+                target.add(notificationPanel);
+            }
+        });
+        add(twitterSettingsForm);
 
     }
 
