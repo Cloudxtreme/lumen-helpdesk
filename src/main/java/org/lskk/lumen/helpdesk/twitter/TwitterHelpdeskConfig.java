@@ -2,7 +2,6 @@ package org.lskk.lumen.helpdesk.twitter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.ImmutableList;
-import opennlp.tools.util.StringList;
 import org.apache.commons.lang3.StringUtils;
 import org.lskk.lumen.helpdesk.submit.HelpdeskInput;
 import org.lskk.lumen.helpdesk.submit.HelpdeskMessage;
@@ -10,19 +9,16 @@ import org.lskk.lumen.helpdesk.submit.HelpdeskResult;
 import org.lskk.lumen.helpdesk.submit.SubmitService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.soluvas.socmed.TwitterAuthorization;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import twitter4j.*;
-import twitter4j.auth.AccessToken;
+import twitter4j.conf.ConfigurationBuilder;
 
 import javax.inject.Inject;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -37,11 +33,7 @@ public class TwitterHelpdeskConfig {
     @Inject
     private Environment env;
     @Inject
-    private TwitterFactory twitterFactory;
-    @Inject
-    private TwitterStreamFactory twitterStreamFactory;
-    @Inject
-    private TwitterAuthorization twitterAuthorization;
+    private TwitterService twitterSvc;
     @Inject
     private ObjectMapper objectMapper;
     @Inject
@@ -53,9 +45,16 @@ public class TwitterHelpdeskConfig {
     public TwitterStream twitterStreaming() {
         final List<String> trackedScreenNames = ImmutableList.of("lumenrobot", "dkijakarta"); // LOWERCASE PLEASE!
 
-        final AccessToken accessToken = new AccessToken(twitterAuthorization.getAccessToken(), twitterAuthorization.getAccessTokenSecret());
-        final Twitter twitter = twitterFactory.getInstance(accessToken);
-        final TwitterStream twitterStream = twitterStreamFactory.getInstance(accessToken);
+        final TwitterApp twitterApp = twitterSvc.loadApp();
+        final TwitterAuthz authz = twitterSvc.loadAuthz();
+        final twitter4j.conf.Configuration twitterConf = new ConfigurationBuilder()
+                .setOAuthConsumerKey(twitterApp.getApiKey())
+                .setOAuthConsumerSecret(twitterApp.getApiSecret())
+                .setOAuthAccessToken(authz.getAccessToken())
+                .setOAuthAccessTokenSecret(authz.getAccessTokenSecret())
+                .build();
+        final Twitter twitter = new TwitterFactory(twitterConf).getInstance();
+        final TwitterStream twitterStream = new TwitterStreamFactory(twitterConf).getInstance();
 
         final UserStreamAdapter listener = new UserStreamAdapter() {
             @Override
@@ -115,8 +114,15 @@ public class TwitterHelpdeskConfig {
     }
 
     public void updateStatus(StatusUpdate update) throws TwitterException {
-        final AccessToken accessToken = new AccessToken(twitterAuthorization.getAccessToken(), twitterAuthorization.getAccessTokenSecret());
-        final Twitter twitter = twitterFactory.getInstance(accessToken);
+        final TwitterApp twitterApp = twitterSvc.loadApp();
+        final TwitterAuthz authz = twitterSvc.loadAuthz();
+        final twitter4j.conf.Configuration twitterConf = new ConfigurationBuilder()
+                .setOAuthConsumerKey(twitterApp.getApiKey())
+                .setOAuthConsumerSecret(twitterApp.getApiSecret())
+                .setOAuthAccessToken(authz.getAccessToken())
+                .setOAuthAccessTokenSecret(authz.getAccessTokenSecret())
+                .build();
+        final Twitter twitter = new TwitterFactory(twitterConf).getInstance();
         twitter.updateStatus(update);
     }
 

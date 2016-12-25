@@ -14,19 +14,19 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.0.RELEASE</version>
+		<version>1.4.3.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<start-class>org.lskk.lumen.helpdesk.LumenSocialApplication</start-class>
+		<start-class>org.lskk.lumen.helpdesk.HelpdeskApp</start-class>
 		<java.version>1.8</java.version>
 	</properties>
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
+			<!--<dependency>
 				<groupId>org.drools</groupId>
 				<artifactId>drools-bom</artifactId>
 				<version>6.4.0.Final</version>
@@ -39,16 +39,16 @@
 				<version>6.4.0.Final</version>
 				<type>pom</type>
 				<scope>import</scope>
-			</dependency>
+			</dependency>-->
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
-		<dependency>
+		<!--<dependency>
 			<groupId>org.soluvas</groupId>
 			<artifactId>org.soluvas.socmed</artifactId>
 			<version>2.2.0-SNAPSHOT</version>
-		</dependency>
+		</dependency>-->
 		<!--<dependency>
 			<groupId>org.lskk.lumen</groupId>
 			<artifactId>org.lskk.lumen.core</artifactId>
@@ -65,7 +65,7 @@
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>-->
 
-		<dependency>
+		<!--<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
 		</dependency>
@@ -73,13 +73,13 @@
 			<groupId>org.drools</groupId>
 			<artifactId>drools-compiler</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency>-->
 		<!-- required by drools KieContainer -->
-		<dependency>
+		<!--<dependency>
 			<groupId>xml-apis</groupId>
 			<artifactId>xml-apis</artifactId>
 			<version>1.4.01</version>
-		</dependency>
+		</dependency>-->
 		<!--<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-decisiontables</artifactId>
@@ -94,7 +94,7 @@
 		<dependency>
 			<groupId>org.telegram</groupId>
 			<artifactId>telegrambots</artifactId>
-			<version>2.4.4</version>
+			<version>2.4.4.2</version>
 		</dependency>
 
 		<dependency>
@@ -112,12 +112,6 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-joda</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>net.sourceforge.plantuml</groupId>
-			<artifactId>plantuml</artifactId>
-			<version>8036</version>
 		</dependency>
 
 		<dependency>
@@ -158,15 +152,15 @@
 			<version>1.0-SP4</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.camel</groupId>
-			<artifactId>camel-spring-boot-starter</artifactId>
-			<version>2.17.2</version>
-		</dependency>
 		<!--<dependency>
 			<groupId>org.apache.camel</groupId>
+			<artifactId>camel-spring-boot-starter</artifactId>
+			<version>2.18.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.camel</groupId>
 			<artifactId>camel-rabbitmq</artifactId>
-			<version>2.17.2</version>
+			<version>2.18.1</version>
 		</dependency>-->
 		<dependency>
 			<groupId>com.github.ooxi</groupId>
@@ -198,37 +192,37 @@
 		<dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-spring</artifactId>
-            <version>7.4.0</version>
+            <version>7.5.0</version>
         </dependency>
 		<dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-extensions</artifactId>
-            <version>7.4.0</version>
+            <version>7.5.0</version>
         </dependency>
 		<dependency>
             <groupId>org.apache.wicket</groupId>
             <artifactId>wicket-util</artifactId>
-            <version>7.4.0</version>
+            <version>7.5.0</version>
         </dependency>
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>wicket-bootstrap-themes</artifactId>
-			<version>0.10.7</version>
+			<version>0.10.11</version>
         </dependency>
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>wicket-bootstrap-extensions</artifactId>
-			<version>0.10.7</version>
+			<version>0.10.11</version>
         </dependency>
         <dependency>
             <groupId>de.agilecoders.wicket</groupId>
             <artifactId>wicket-bootstrap-less</artifactId>
-			<version>0.10.7</version>
+			<version>0.10.11</version>
         </dependency>
         <dependency>
             <groupId>org.wicketstuff</groupId>
             <artifactId>wicketstuff-annotation</artifactId>
-			<version>7.4.0</version>
+			<version>7.5.0</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.slf4j</groupId>
@@ -241,70 +235,6 @@
             </exclusions>
         </dependency>
 
-		<!--<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>lodash</artifactId>
-			<version>4.6.1</version>
-		</dependency>-->
-		<dependency>
-			<!-- already depends on lodash 3.x -->
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>jointjs</artifactId>
-			<version>0.9.7</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.webjars.bower</groupId>
-					<artifactId>jquery</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>backbone</artifactId>
-			<version>1.2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>dagre</artifactId>
-			<version>0.7.4</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>graphlib</artifactId>
-			<version>1.0.7</version>
-		</dependency>
-		<!--<dependency>
-			<groupId>org.antlr</groupId>
-			<artifactId>ST4</artifactId>
-			<version>4.0.8</version>
-		</dependency>-->
-		<dependency>
-			<groupId>org.webjars.bower</groupId>
-			<artifactId>underscore</artifactId>
-			<version>1.8.3</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.npm</groupId>
-			<artifactId>primeng</artifactId>
-			<version>1.0.0-beta.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars.npm</groupId>
-			<artifactId>angular2</artifactId>
-			<version>2.0.0-beta.17</version>
-		</dependency>
-		<dependency>
-			<groupId>com.airhacks</groupId>
-			<artifactId>jaxrs-cors</artifactId>
-			<version>0.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.json</groupId>
-			<artifactId>javax.json-api</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -316,13 +246,8 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-spatial</artifactId>
-			<version>5.0.9.Final</version>
+			<version>5.0.11.Final</version>
 		</dependency>
-		<!--<dependency>
-			<groupId>org.geolatte</groupId>
-			<artifactId>geolatte-common</artifactId>
-			<version>0.8</version>
-		</dependency>-->
 		<dependency>
 			<groupId>com.bedatadriven</groupId>
 			<artifactId>jackson-datatype-jts</artifactId>
@@ -331,6 +256,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -360,7 +289,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-scala_2.11</artifactId>
-			<version>2.8.0.rc2</version>
+			<version>2.8.4</version>
 		</dependency>
 
 		<dependency>
@@ -370,12 +299,12 @@
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>9.4.1209</version>
+			<version>9.4.1212</version>
 		</dependency>
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
-			<version>3.5.1</version>
+			<version>3.5.3</version>
 		</dependency>
 		<dependency>
             <groupId>org.jadira.usertype</groupId>
@@ -383,12 +312,25 @@
             <version>5.0.0.GA</version>
         </dependency>
 		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+		</dependency>
+		<!--<dependency>
+			<groupId>org.elasticsearch</groupId>
+			<artifactId>elasticsearch</artifactId>
+			<version>2.4.3</version>
+		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
 		<!--<dependency>
@@ -436,12 +378,12 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
+			<!--<plugin>
 				<groupId>org.kie</groupId>
 				<artifactId>kie-maven-plugin</artifactId>
 				<version>6.4.0.Final</version>
 				<extensions>true</extensions>
-			</plugin>
+			</plugin>-->
 		</plugins>
 	</build>
 
@@ -453,16 +395,16 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-		<repository>
+		<!--<repository>
 			<id>bippo-nexus-public</id>
 			<url>http://nexus.bippo.co.id/nexus/content/groups/public/</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
-		</repository>
+		</repository>-->
 	</repositories>
 
-	<distributionManagement>
+	<!--<distributionManagement>
 		<snapshotRepository>
 			<id>soluvas-public-snapshots</id>
 			<url>http://nexus.bippo.co.id/nexus/content/repositories/soluvas-public-snapshots/</url>
@@ -471,6 +413,6 @@
 			<id>soluvas-public-releases</id>
 			<url>http://nexus.bippo.co.id/nexus/content/repositories/soluvas-public-releases/</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement>-->
 
 </project>

@@ -1,0 +1,68 @@
+---
+# Spring Boot banner
+banner:
+  image:
+    width: 16
+    height: 8
+
+# to avoid conflict with other Lumen modules, each Lumen module is assigned a specific HTTP port
+server:
+  port: 8116
+
+# Use postgresql database
+spring:
+  # Jackson
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+#spring.jpa.hibernate.naming-strategy=org.hibernate.cfg.DefaultComponentSafeNamingStrategy
+      naming:
+        implicit-strategy: component-path
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate.dialect: org.hibernate.spatial.dialect.postgis.PostgisDialect
+      hibernate.default_schema: lumen
+# instead of spring.jpa.show-sql, turn on DEBUG log
+#	<logger name="org.hibernate.SQL" level="DEBUG"/>
+#	<logger name="org.hibernate.type" level="INFO"/>
+#	<logger name="org.hibernate.tool.hbm2ddl" level="DEBUG"/>
+#spring.jpa.show-sql=true
+  data:
+    rest:
+      basePath: /api
+    # Elasticsearch
+    elasticsearch:
+      #cluster-nodes: localhost:9300
+      cluster-name: elasticsearch
+
+lapor:
+  index.name: logstash-2016.07.27
+
+# Helpdesk
+#helpdesk.twitter.enabled=${TWITTER_ENABLED}
+#helpdesk.telegram.enabled=${TELEGRAM_ENABLED}
+helpdesk:
+  telegram:
+    staff:
+      chat-id: 198785571
+
+---
+spring:
+  profiles: development
+
+# Web
+wicket:
+  configuration: DEVELOPMENT
+
+---
+spring:
+  profiles: production
+
+# Web
+wicket:
+  configuration: DEPLOYMENT

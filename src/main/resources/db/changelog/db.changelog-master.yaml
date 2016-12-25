@@ -244,3 +244,78 @@ databaseChangeLog:
               - name: village_id
         - sql: |
             CREATE INDEX ik_general_hospital_geometry ON lumen.general_hospital USING GIST ( geometry )
+  - changeSet:
+      id: twitter_app
+      author: ceefour
+      changes:
+        - createTable:
+            schemaName: lumen
+            tableName: twitter_app
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: api_key
+                  type: varchar(255)
+              - column:
+                  name: api_secret
+                  type: varchar(255)
+        - createTable:
+            schemaName: lumen
+            tableName: twitter_authz
+            columns:
+              - column:
+                  name: id
+                  type: int
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: app_id
+                  type: varchar(255)
+              - column:
+                  name: user_id
+                  type: bigint
+              - column:
+                  name: screen_name
+                  type: varchar(255)
+              - column:
+                  name: creation_time
+                  type: timestamp with time zone
+              - column:
+                  name: access_token
+                  type: varchar(255)
+              - column:
+                  name: access_token_secret
+                  type: varchar(255)
+        - createIndex:
+            indexName: ik_twitter_authz_app_id
+            schemaName: lumen
+            tableName: twitter_authz
+            columns:
+              - name: app_id
+        - addForeignKeyConstraint:
+            constraintName: fk_twitter_authz_app_id
+            baseTableSchemaName: lumen
+            baseTableName: twitter_authz
+            baseColumnNames: app_id
+            referencedTableSchemaName: lumen
+            referencedTableName: twitter_app
+            referencedColumnNames: id
+  - changeSet:
+      id: twitter_authz_request_token
+      author: ceefour
+      changes:
+        - addColumn:
+            schemaName: lumen
+            tableName: twitter_authz
+            columns:
+              - column:
+                  name: request_token
+                  type: varchar(255)
+              - column:
+                  name: request_token_secret
+                  type: varchar(255)
