@@ -319,3 +319,32 @@ databaseChangeLog:
               - column:
                   name: request_token_secret
                   type: varchar(255)
+  - changeSet:
+      id: config
+      author: ceefour
+      changes:
+        - createTable:
+            schemaName: lumen
+            tableName: config
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: value
+                  type: text
+  - changeSet:
+      id: search_index
+      author: ceefour
+      changes:
+        - createTable:
+            schemaName: lumen
+            tableName: search_index
+            columns:
+              - column:
+                  name: id
+                  type: varchar(255)
+                  constraints:
+                    primaryKey: true

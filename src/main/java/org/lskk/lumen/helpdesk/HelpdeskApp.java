@@ -41,7 +41,7 @@ public class HelpdeskApp implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        log.info("Joining thread, you can press Ctrl+C to shutdown application");
-        Thread.currentThread().join();
+//        log.info("Joining thread, you can press Ctrl+C to shutdown application");
+//        Thread.currentThread().join();
     }
 }

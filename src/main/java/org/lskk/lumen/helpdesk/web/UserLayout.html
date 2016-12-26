@@ -61,14 +61,13 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li>
-                    <a href="/">
-                        <i class="fa fa-home"></i> <span>Home</span>
-                    </a>
+                    <a href="/"><i class="fa fa-home"></i> <span>Home</span></a>
                 </li>
                 <li>
-                    <a href="/settings">
-                        <i class="fa fa-gears"></i> <span>Settings</span>
-                    </a>
+                    <a href="/search_indexes"><i class="fa fa-gears"></i> <span>Search Indexes</span></a>
+                </li>
+                <li>
+                    <a href="/settings"><i class="fa fa-gears"></i> <span>Settings</span></a>
                 </li>
             </ul>
         </section>
@@ -79,6 +78,8 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
+        <div wicket:id="notificationPanel"></div>
+
         <wicket:child>
             <!-- Content Header (Page header) -->
             <section class="content-header">
@@ -100,39 +101,6 @@
     <footer class="main-footer">
         Copyright &copy; 2016 <a href="http://lumen-ai.com">Lumen AI</a>.
     </footer>
-
-    <!-- header -->
-<!--<header class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <div class="logo">
-                <a href="/" class="navbar-brand">Lumen Reasoner</a>
-            </div>
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-        </div>
-        <nav class="navbar-collapse collapse" id="navbar-main">
-            <ul class="nav navbar-nav">
-                <li><a href="/">Home</a></li>
-                <li><a href="/settings">Settings</a></li>
-            </ul>
-        </nav>
-        <nav class="pull-right">
-            <span wicket:id="principalLabel">user</span>
-            <form action="/logout" method="post">
-                <input type="submit" value="Logout"/>
-            </form>
-        </nav>
-    </div>
-</header>-->
-
-<!-- //End-banner-->
-
-<div wicket:id="notificationPanel"></div>
-
 
 </div>
 </body>
