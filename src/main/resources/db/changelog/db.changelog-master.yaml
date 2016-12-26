@@ -348,3 +348,17 @@ databaseChangeLog:
                   type: varchar(255)
                   constraints:
                     primaryKey: true
+  - changeSet:
+      id: search_index2
+      author: ceefour
+      changes:
+        - addColumn:
+            schemaName: lumen
+            tableName: search_index
+            columns:
+              - column:
+                  name: threshold
+                  type: float4
+              - column:
+                  name: response_template
+                  type: text

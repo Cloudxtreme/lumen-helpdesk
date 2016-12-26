@@ -1,0 +1,32 @@
+<wicket:extend>
+<section class="content-header">
+    <h1>Search Index: <span wicket:id="searchIndexId"></span></h1>
+</section>
+
+<section class="content">
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Settings</h3>
+        </div>
+        <form role="form" wicket:id="form">
+            <div class="box-body">
+                <div class="form-group">
+                    <label>Threshold</label>
+                    <input type="number" class="form-control" wicket:id="threshold">
+                    <span>Minimum search result threshold before the result will be used as chatbot response.</span>
+                </div>
+                <div class="form-group">
+                    <label>Response template</label>
+                    <input type="text" class="form-control" wicket:id="responseTemplate">
+                    <span>Response can use variables from current result row using Mustache syntax, e.g. "Silakan dukung {{{row.JudulLaporan}}}".</span>
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary" wicket:id="saveBtn">Save</button>
+            </div>
+        </form>
+    </div>
+</section>
+</wicket:extend>

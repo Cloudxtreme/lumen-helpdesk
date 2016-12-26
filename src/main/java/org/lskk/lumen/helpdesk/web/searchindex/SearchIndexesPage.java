@@ -2,10 +2,16 @@ package org.lskk.lumen.helpdesk.web.searchindex;
 
 import com.google.common.collect.ImmutableList;
 import de.agilecoders.wicket.extensions.markup.html.bootstrap.table.BootstrapDefaultDataTable;
+import org.apache.wicket.extensions.markup.html.repeater.data.grid.ICellPopulator;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.lskk.lumen.helpdesk.searchindex.SearchIndex;
 import org.lskk.lumen.helpdesk.searchindex.SearchIndexRepository;
@@ -43,8 +49,8 @@ public class SearchIndexesPage extends UserLayout {
     @Override
     protected void onInitialize() {
         super.onInitialize();
-        final ImmutableList<PropertyColumn<SearchIndex, String>> columns = ImmutableList.of(
-                new PropertyColumn<SearchIndex, String>(new Model<>("ID"), "id"),
+        final ImmutableList<IColumn<SearchIndex, String>> columns = ImmutableList.of(
+                new IdColumn(),
                 new PropertyColumn<SearchIndex, String>(new Model<>("Created"), "creationTime"),
                 new PropertyColumn<SearchIndex, String>(new Model<>("Properties"), "properties")
         );
@@ -88,4 +94,21 @@ public class SearchIndexesPage extends UserLayout {
         return new Model<>("Indexes | Lumen Helpdesk");
     }
 
+    private static class IdColumn extends AbstractColumn<SearchIndex, String> {
+        public IdColumn() {
+            super(new Model<>("ID"), "id");
+        }
+
+        @Override
+        public void populateItem(Item<ICellPopulator<SearchIndex>> cellItem, String componentId, IModel<SearchIndex> rowModel) {
+//            final BookmarkablePageLink<Object> link = new BookmarkablePageLink<>(componentId, SearchIndexEditPage.class,
+//                    new PageParameters().set("searchIndexId", rowModel.getObject().getId()));
+//            link.setBody(new PropertyModel<>(rowModel, "id"));
+//            link.setRenderBodyOnly(false);
+//            cellItem.add(link);
+            cellItem.add(new IdPanel(componentId, new PropertyModel<>(rowModel, "id"),
+                    SearchIndexEditPage.class,
+                    "searchIndexId", rowModel.getObject().getId()));
+        }
+    }
 }

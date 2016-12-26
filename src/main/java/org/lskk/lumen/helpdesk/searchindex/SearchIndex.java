@@ -14,6 +14,8 @@ import java.util.List;
 public class SearchIndex implements Serializable {
     @Id
     private String id;
+    private Float threshold;
+    private String responseTemplate;
 
     @Transient
     private OffsetDateTime creationTime;
@@ -26,6 +28,22 @@ public class SearchIndex implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Float getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(Float threshold) {
+        this.threshold = threshold;
+    }
+
+    public String getResponseTemplate() {
+        return responseTemplate;
+    }
+
+    public void setResponseTemplate(String responseTemplate) {
+        this.responseTemplate = responseTemplate;
     }
 
     public OffsetDateTime getCreationTime() {
