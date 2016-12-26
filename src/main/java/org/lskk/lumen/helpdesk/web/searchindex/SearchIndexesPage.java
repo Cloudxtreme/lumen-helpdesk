@@ -63,12 +63,12 @@ public class SearchIndexesPage extends UserLayout {
                                 Sort.Direction.ASC, "id"));
                 page.forEach(it -> {
                     final Map setting = esTemplate.getSetting(it.getId());
-                    log.info("Setting for {}: {}", it.getId(), setting);
+                    log.trace("Setting for {}: {}", it.getId(), setting);
                     final long indexCreationDate = Long.parseLong((String) setting.get("index.creation_date"));
                     it.setCreationTime(OffsetDateTime.ofInstant(Instant.ofEpochMilli(indexCreationDate), ZoneId.of("Asia/Jakarta")));
 
                     final Map core2 = esTemplate.getMapping(it.getId(), "core2");
-                    log.info("Mapping core2 for {}: {}", it.getId(), core2);
+                    log.trace("Mapping core2 for {}: {}", it.getId(), core2);
                     final Map<String, Object> properties = (Map<String, Object>) core2.get("properties");
                     it.setProperties(ImmutableList.copyOf(properties.keySet()));
                 });
