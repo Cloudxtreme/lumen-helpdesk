@@ -11,7 +11,7 @@ import org.springframework.core.env.Environment;
 import javax.inject.Inject;
 
 @Configuration
-@Profile({"reasonerApp", "reasonerSocmedApp"})
+@Profile({"helpdeskApp"})
 public class WicketConfig {
 
     @Inject

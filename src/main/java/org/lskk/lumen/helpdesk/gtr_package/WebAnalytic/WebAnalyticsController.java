@@ -5,11 +5,6 @@ import org.joda.time.YearMonth;
 import org.lskk.lumen.helpdesk.gtr_package.ChartJSMain;
 import org.springframework.web.bind.annotation.*;
 
-import javax.json.Json;
-import javax.json.JsonArray;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-
 /**
  * Created by user on 9/27/2016.
  */

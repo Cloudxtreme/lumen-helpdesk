@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html wicket:id="html" lang="en-US">
+<head>
+<meta charset="utf-8"/>
+<title wicket:id="title">Project</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<link rel="shortcut icon" href="/favicon.ico"/>
+<style>
+/*body { padding-top: 63px }*/
+</style>
+</head>
+<body class="hold-transition skin-blue fixed sidebar-mini">
+<div class="wrapper">
+
+    <header class="main-header">
+
+        <!-- Logo -->
+        <a href="index2.html" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>L</b>Hd</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Lumen</b> Helpdesk</span>
+        </a>
+
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+
+            <!-- Navbar Right Menu -->
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <!-- User Account: style can be found in dropdown.less -->
+                    <li>
+                        <a href="#">
+                            <span wicket:id="principalLabel">user</span>
+                        </a>
+                    </li>
+                    <li>
+                        <form action="/logout" method="post" style="margin: 0.8em">
+                            <input type="submit" value="Logout"/>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+    </header>
+
+    <!-- =============================================== -->
+
+    <!-- Left side column. contains the sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <section class="sidebar">
+            <!-- sidebar menu: : style can be found in sidebar.less -->
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="/"><i class="fa fa-home"></i> <span>Home</span></a>
+                </li>
+                <li>
+                    <a href="/search_indexes"><i class="fa fa-gears"></i> <span>Search Indexes</span></a>
+                </li>
+                <li>
+                    <a href="/settings"><i class="fa fa-gears"></i> <span>Settings</span></a>
+                </li>
+            </ul>
+        </section>
+        <!-- /.sidebar -->
+    </aside>
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <div wicket:id="notificationPanel"></div>
+
+        <wicket:child>
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    Fixed Layout
+                    <small>Blank example to the fixed layout</small>
+                </h1>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+
+            </section>
+            <!-- /.content -->
+        </wicket:child>
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+        Copyright &copy; 2016 <a href="http://lumen-ai.com">Lumen AI</a>.
+    </footer>
+
+</div>
+</body>
+</html>

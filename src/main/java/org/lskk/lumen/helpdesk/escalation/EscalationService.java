@@ -9,8 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.telegram.telegrambots.TelegramApiException;
-import twitter4j.GeoLocation;
+import org.telegram.telegrambots.exceptions.TelegramApiException;
 import twitter4j.StatusUpdate;
 import twitter4j.TwitterException;
 

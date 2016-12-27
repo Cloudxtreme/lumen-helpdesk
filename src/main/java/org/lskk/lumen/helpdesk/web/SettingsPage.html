@@ -1,0 +1,76 @@
+<wicket:extend>
+<section class="content-header">
+    <h1>Settings</h1>
+</section>
+
+<section class="content">
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Twitter App</h3>
+        </div>
+        <form role="form" wicket:id="twitterAppForm">
+            <div class="box-body">
+                <div class="form-group">
+                    <label>API Key</label>
+                    <input type="text" class="form-control" wicket:id="apiKeyFld">
+                </div>
+                <div class="form-group">
+                    <label>API Secret</label>
+                    <input type="text" class="form-control" wicket:id="apiSecretFld">
+                </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary" wicket:id="saveBtn">Save</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Twitter Account</h3>
+        </div>
+        <form role="form" wicket:id="twitterAccountForm">
+            <div class="box-body">
+                <div class="form-group">
+                    <label>Account</label>
+                    <input type="text" class="form-control" wicket:id="screenNameLabel"/>
+                </div>
+                <div class="form-group">
+                    <label>Access Token</label>
+                    <input type="text" class="form-control" wicket:id="tokenLabel"/>
+                </div>
+                <div class="form-group">
+                    <label>Access Token Secret</label>
+                    <input type="text" class="form-control" wicket:id="tokenSecretLabel"/>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary" wicket:id="refreshAccessTokenBtn">Get Access Token</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="box box-default">
+        <div class="box-header with-border">
+            <h3 class="box-title">Twitter Settings</h3>
+        </div>
+        <form role="form" wicket:id="twitterSettingsForm">
+            <div class="box-body">
+                <div class="form-group">
+                    <label>Tracked users (JSON format)</label>
+                    <input type="text" class="form-control" wicket:id="trackedScreenNamesFld">
+                    <span>Mentions to these users will be responded by Lumen chatbot.</span>
+                </div>
+            </div>
+            <div class="box-footer">
+                <button type="submit" class="btn btn-primary" wicket:id="saveBtn">Save</button>
+            </div>
+        </form>
+    </div>
+
+</section>
+
+</wicket:extend>

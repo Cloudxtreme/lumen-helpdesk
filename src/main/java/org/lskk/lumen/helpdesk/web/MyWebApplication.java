@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
 @Component("webApp")
-@Profile({"reasonerApp", "reasonerSocmedApp"})
+@Profile({"helpdeskApp"})
 public class MyWebApplication extends WebApplication {
     @Override
     public Class<? extends Page> getHomePage() {
@@ -35,8 +35,8 @@ public class MyWebApplication extends WebApplication {
         getComponentInstantiationListeners().add(new SpringComponentInjector(this));
 
         final IBootstrapSettings bootstrapSettings = new BootstrapSettings()
-                .useCdnResources(getConfigurationType() == RuntimeConfigurationType.DEPLOYMENT)
-                .setThemeProvider(new SingleThemeProvider(BootswatchTheme.Cosmo));
+                .useCdnResources(getConfigurationType() == RuntimeConfigurationType.DEPLOYMENT);
+//                .setThemeProvider(new SingleThemeProvider(BootswatchTheme.Cosmo));
         Bootstrap.install(this, bootstrapSettings);
 
         //Howler.install(this);
