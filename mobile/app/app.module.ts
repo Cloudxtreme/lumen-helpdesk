@@ -81,6 +81,7 @@ import {MessagesDemo} from './demo/view/messagesdemo';
 import {MiscDemo} from './demo/view/miscdemo';
 import {EmptyDemo} from './demo/view/emptydemo';
 import {ChartsDemo} from './demo/view/chartsdemo';
+import {ChartsSampah} from './demo/view/chartssampah';
 import {FileDemo} from './demo/view/filedemo';
 import {UtilsDemo} from './demo/view/utilsdemo';
 import {Documentation} from './demo/view/documentation';
@@ -173,6 +174,7 @@ import {NodeService} from './demo/service/nodeservice';
         MessagesDemo,
         MiscDemo,
         ChartsDemo,
+        ChartsSampah,
         EmptyDemo,
         FileDemo,
         UtilsDemo,

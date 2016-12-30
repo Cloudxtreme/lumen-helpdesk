@@ -12,6 +12,7 @@ import {MessagesDemo} from './demo/view/messagesdemo';
 import {MiscDemo} from './demo/view/miscdemo';
 import {EmptyDemo} from './demo/view/emptydemo';
 import {ChartsDemo} from './demo/view/chartsdemo';
+import {ChartsSampah} from './demo/view/chartssampah';
 import {FileDemo} from './demo/view/filedemo';
 import {UtilsDemo} from './demo/view/utilsdemo';
 import {Documentation} from './demo/view/documentation';
@@ -29,6 +30,7 @@ export const routes: Routes = [
     {path: 'misc', component: MiscDemo},
     {path: 'empty', component: EmptyDemo},
     {path: 'charts', component: ChartsDemo},
+    {path: 'charts_sampah', component: ChartsSampah},
     {path: 'file', component: FileDemo},
     {path: 'utils', component: UtilsDemo},
     {path: 'documentation', component: Documentation}
