@@ -25,7 +25,7 @@ public class TwitterController {
     private TwitterService twitterSvc;
 
     @GetMapping("twitter_settings")
-    public void TwitterSettings(HttpServletResponse response, @RequestParam("oauth_verifier") String verifier) throws IOException, TwitterException {
+    public void verifier(HttpServletResponse response, @RequestParam("oauth_verifier") String verifier) throws IOException, TwitterException {
         final TwitterApp twitterApp = twitterSvc.loadApp();
         final TwitterAuthz authz = twitterSvc.loadAuthz();
         final twitter4j.conf.Configuration twitterConf = new ConfigurationBuilder()
